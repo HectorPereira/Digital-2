@@ -43,3 +43,10 @@ La Tabla~\ref{tab:pruebas} presenta casos de referencia calculados, no medicione
 \subsection{Discusión y limitaciones}
 \completar{Analizar diferencias entre simulación y placa, problemas concretos de restricciones, síntesis, lectura de switches o temporización; explicar sus causas y las soluciones efectivamente aplicadas. Valorar la legibilidad del video e indicar si las tomas permitieron verificar las entradas y salidas.}
 
+
+\subsection{Síntesis e implementación}
+Ambos diseños completaron síntesis, colocación y ruteo con reloj de 100 MHz. En la Parte A se utilizaron 15 LUT y 38 registros, con margen mínimo de setup de 5,897 ns y de hold de 0,251 ns. En la Parte B se utilizaron 16 LUT y 32 registros, con márgenes de 5,939 ns y 0,245 ns, respectivamente. No se registraron violaciones de setup ni hold en las rutas restringidas.
+
+Los informes temporales advierten que las entradas de switches y las salidas hacia LEDs no tienen retardos externos especificados. Por tanto, estos resultados acreditan las restricciones internas del reloj, no una caracterización temporal completa de las interfaces externas ni el funcionamiento físico del shield. Las pruebas en placa siguen pendientes.
+
+El DRC final no registró violaciones tras incorporar las propiedades de configuración indicadas en el XDC maestro. Se generaron los bitstreams de ambas partes; su programación y prueba en placa permanecen pendientes.

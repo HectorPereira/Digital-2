@@ -4,4 +4,4 @@ Implementación nueva basada en la consigna; no se recibieron fuentes del colega
 
 Testbench integrado con MAX=4 y reloj 10 ns: más de tres vueltas de estados, retención entre pulsos, reset síncrono desde OR y reinicio del divisor. Recorre todos los 256 pares de operandos para cada una de las cuatro operaciones. Pasó en XSim 2025.1, fin a 605001 ps.
 
-Crear el proyecto ejecutando crear_proyecto.tcl desde Vivado. No generar bitstream hasta completar y verificar el XDC de A y B con el manual del shield. No se ha validado hardware.
+Crear el proyecto ejecutando crear_proyecto.tcl desde Vivado. XDC cotejado con esquema y XDC maestro; implementación y bitstream completados. Ver evidencias/implementacion/. No se ha validado hardware.

@@ -39,3 +39,6 @@ Captura recibida incorporada como figuras/simulacion_parte_a.png. Corregida la d
 
 ## Simulación corregida y comienzo de Parte B
 Reset de Parte A corregido: q=2 antes del reset, retención hasta flanco y borrado comprobados. Captura nueva incorporada. Prueba/video de placa diferidos hasta laboratorio. Parte B implementada desde consigna y simulación integrada aprobada; faltan captura, XDC de operandos y placa. Los pendientes históricos anteriores quedan sustituidos por este estado.
+
+## Pines e implementación cerrados
+Esquema y XDC maestro cotejados, XDC B completo y ambos diseños sintetizados y ruteados. DRC final sin violaciones y bitstreams A/B generados en evidencias/implementacion/. Sustituye pendientes anteriores de XDC y síntesis. Quedan captura ampliada de carry, PDF, guion y validación física.

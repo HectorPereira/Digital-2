@@ -1,6 +1,6 @@
 # Laboratorio 3 - Parte A - Spartan Edge Accelerator + shield UTEC
 # Correspondencia: LED(0) -> LED1 fisico del shield -> FPGAIO9.
-# Confirmar que el switch elegido como rst corresponde al pin D2 del shield.
+# Reset verificado en el esquema del shield: Arduino D2, pin A10.
 
 # Reloj de 100 MHz
 set_property PACKAGE_PIN H4 [get_ports {clk}]
@@ -28,3 +28,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {LED[*]}]
 # Habilita alimentacion 3,3 V del shield, activo bajo
 set_property PACKAGE_PIN L13 [get_ports {AR_3V3_EN}]
 set_property IOSTANDARD LVCMOS33 [get_ports {AR_3V3_EN}]
+
+# Propiedades de configuracion segun XDC maestro de SEA
+set_property CONFIG_VOLTAGE 3.3 [current_design]
+set_property CFGBVS VCCO [current_design]
