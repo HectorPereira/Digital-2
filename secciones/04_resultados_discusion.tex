@@ -7,7 +7,7 @@ Durante 41 ciclos se compararon mediante \texttt{assert} el pulso de habilitaci�
 La Fig.~\ref{fig:simA} muestra la ejecución corregida. La prueba ejercitó divisor y contador con N=3, sin acreditar todavía la implementación física del top de diez bits.
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=\textwidth,trim=25 490 25 110,clip]{simulacion_parte_a_corregida.png}
+\includegraphics[width=\textwidth,trim=18bp 300bp 15bp 114bp,clip]{simulacion_parte_a_corregida.png}
 \caption{Simulación corregida de la Parte A: reloj de 10 ns, MAX=4 y N=3. Se observa el desborde de siete a cero y el reset síncrono final que borra la cuenta desde dos.}
 \label{fig:simA}
 \end{figure*}
@@ -16,12 +16,20 @@ La Fig.~\ref{fig:simA} muestra la ejecución corregida. La prueba ejercitó divi
 \completar{Registrar los valores observados durante al menos diez segundos, la conmutación de LED0, el incremento cada segundo y el comportamiento del reset. Si no se implementó, indicar expresamente la limitación.}
 
 \subsection{Parte B: simulación}
-Se implementó una FSM enumerada de tres procesos y un datapath combinacional, integrados con el divisor de la Parte A. El testbench del top utilizó MAX=4 y reloj de 10 ns, recorrió más de tres ciclos de estados y verificó la retención entre habilitaciones. Se ensayaron los 256 pares posibles de operandos para cada operación, incluida la suma con acarreo, y se comprobó que los operandos no alteraban la salida de Moore. El reset se aplicó desde OR, verificando su acción síncrona, el retorno a AND y el reinicio de la temporización. Todas las aserciones finalizaron correctamente a los 605,001 ns en XSim 2025.1. La asignación física de las entradas A y B y la validación en placa siguen pendientes.
+Se implementó una FSM enumerada de tres procesos y un datapath combinacional, integrados con el divisor de la Parte A. El testbench del top utilizó MAX=4 y reloj de 10 ns, recorrió más de tres ciclos de estados y verificó la retención entre habilitaciones. Se ensayaron los 256 pares posibles de operandos para cada operación, incluida la suma con acarreo, y se comprobó que los operandos no alteraban la salida de Moore. El reset se aplicó desde OR, verificando su acción síncrona, el retorno a AND y el reinicio de la temporización. Todas las aserciones finalizaron correctamente a los 605,001 ns en XSim 2025.1. La asignación física de las entradas A y B se completó según el esquema; la validación en placa sigue pendiente.
 La Fig.~\ref{fig:simB} muestra la secuencia de operación y el reset desde OR. Los cambios rápidos de operandos al comienzo corresponden al barrido exhaustivo del testbench; la comprobación de esos casos se realizó mediante aserciones y requiere una ampliación temporal para su inspección visual.
 \begin{figure*}[!t]\centering
-\includegraphics[width=\textwidth,trim=260 430 25 110,clip]{simulacion_parte_b.png}
+\includegraphics[width=\textwidth,trim=159bp 258bp 15bp 114bp,clip]{simulacion_parte_b.png}
 \caption{Simulación integrada de la Parte B con MAX=4: reloj, reset, operandos, habilitación, código de operación y resultado de cinco bits. op=0,1,2,3 corresponde a AND, OR, XOR y ADD.}
 \label{fig:simB}
+\end{figure*}
+
+\subsection{Parte B: comprobación visible del acarreo}
+Se ejecutó una prueba adicional con operandos constantes A=15 y B=3 durante dos vueltas completas. En ADD se comprobó mediante aserciones el resultado de cinco bits 10010 (18 decimal), carry=1 y los cuatro bits inferiores 0010. En AND, OR y XOR se obtuvieron 3, 15 y 12, respectivamente, con carry=0. La ejecución finalizó sin fallos de aserción a los 415,001 ns. La Fig.~\ref{fig:carry} muestra estos resultados y el reset posterior desde OR.
+\begin{figure*}[!t]\centering
+\includegraphics[width=\textwidth,trim=159bp 243bp 15bp 114bp,clip]{simulacion_carry.png}
+\caption{Prueba de acarreo con A=15 y B=3. En op=3 (ADD), resultado[4:0]=18, carry=1 y resultado[3:0]=0010.}
+\label{fig:carry}
 \end{figure*}
 
 \subsection{Parte B: validación física}

@@ -13,7 +13,7 @@ Abrir `Laboratorio 3.code-workspace` en Visual Studio Code. El documento princip
 
 Se preservó el contenido del colega al dividirlo en secciones. Los textos [Completar] siguen pendientes; no representan pruebas ejecutadas. No se ha compilado ni validado el diseño VHDL porque no se recibieron sus fuentes.
 
-La compilación LaTeX no fue ejecutada: la instalación local de MiKTeX requiere revisar su configuración (la herramienta de PDF de esa instalación falló al acceder a su configuración). La receta queda preparada, sin instalar ni modificar software.
+El informe se compiló con MiKTeX y se revisaron sus páginas renderizadas. El PDF de trabajo actualizado está en output/Informe_Laboratorio_3_Borrador.pdf. Sigue siendo borrador: completar autores y pruebas físicas antes de entregar.
 
 ## Trabajo compartido con Git
 Antes de editar, ejecutar `git pull --rebase`. Después de editar: `git add .`, `git commit -m "Describir el cambio"` y `git push`.

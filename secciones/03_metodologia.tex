@@ -29,6 +29,11 @@ Se definieron los estados enumerados \texttt{S\_AND}, \texttt{S\_OR}, \texttt{S\
 \draw[->] (b) -- node[right]{en} (c);
 \draw[->] (c) -- node[below]{en} (d);
 \draw[->] (d) -- node[left]{en} (a);
+\draw[->] ([xshift=-10mm]a.west) -- node[above]{reset} (a.west);
+\path (a) edge[loop above,->] node{sin en} (a)
+(b) edge[loop above,->] node{sin en} (b)
+(c) edge[loop below,->] node{sin en} (c)
+(d) edge[loop below,->] node{sin en} (d);
 \end{tikzpicture}
 \caption{Diagrama de transición especificado para la FSM. Debe verificarse su correspondencia con el código final.}\label{fig:fsm}
 \end{figure}
@@ -55,7 +60,9 @@ El datapath recibió \texttt{A(3:0)}, \texttt{B(3:0)} y \texttt{op(1:0)}. Se def
 \node[block,right=of fsm] (dat) {Datapath\\A, B, op};
 \draw[->] (div) -- node[above]{en} (fsm);
 \draw[->] (fsm) -- node[above]{op} (dat);
-\node[below=6mm of dat] (led) {LED4:0, LED9:8};
+\node[below=6mm of dat] (led) {LED4:0};
+\node[below=6mm of fsm] (opled) {LED9:8};
+\draw[->] (fsm) -- (opled);
 \draw[->] (dat) -- (led);
 \end{tikzpicture}
 \caption{Diagrama de bloques funcional para la integración de la Parte B. Se omitieron las conexiones comunes de reloj y reset para facilitar la lectura.}\label{fig:bloques}

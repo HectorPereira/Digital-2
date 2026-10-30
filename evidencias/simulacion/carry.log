@@ -1,0 +1,5 @@
+Time resolution is 1 ps
+Note: Prueba visible carry: A=15 B=3 ADD=18, carry=1, resultado=2: correcta
+Time: 415001 ps  Iteration: 0  Process: /tb_carry/line__23  File: C:/Users/hecto/OneDrive/Documents/ChatGPT/UTEC/Digital 2/Laboratorio 3/parte_b/tb/tb_carry.vhd
+Note: Prueba visible carry: A=15 B=3 ADD=18, carry=1, resultado=2: correcta
+Time: 415001 ps  Iteration: 0  Process: /tb_carry/line__23  File: C:/Users/hecto/OneDrive/Documents/ChatGPT/UTEC/Digital 2/Laboratorio 3/parte_b/tb/tb_carry.vhd

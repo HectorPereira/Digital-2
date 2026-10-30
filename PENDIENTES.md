@@ -42,3 +42,6 @@ Reset de Parte A corregido: q=2 antes del reset, retención hasta flanco y borra
 
 ## Pines e implementación cerrados
 Esquema y XDC maestro cotejados, XDC B completo y ambos diseños sintetizados y ruteados. DRC final sin violaciones y bitstreams A/B generados en evidencias/implementacion/. Sustituye pendientes anteriores de XDC y síntesis. Quedan captura ampliada de carry, PDF, guion y validación física.
+
+## Captura de acarreo y PDF revisado
+Prueba dedicada tb_carry con A=15, B=3: dos vueltas completas, ADD=18, carry=1 y resultado inferior=0010; aserciones correctas a 415001 ps. Captura incorporada, PDF de cinco páginas compilado y revisado visualmente. Sin menciones ni enlaces al espacio interno de colaboración. Guion de placa/video listo en GUION_LABORATORIO.md. Pendientes: autores, pruebas físicas, videos, resultados observados y conclusiones de esas pruebas.
