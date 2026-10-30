@@ -18,3 +18,10 @@ La compilación LaTeX no fue ejecutada: la instalación local de MiKTeX requiere
 ## Trabajo compartido con Git
 Antes de editar, ejecutar `git pull --rebase`. Después de editar: `git add .`, `git commit -m "Describir el cambio"` y `git push`.
 Guardar en VS Code no sube los cambios automáticamente. Eviten editar la misma sección al mismo tiempo. Cada integrante debe clonar el repositorio en su propia computadora.
+
+## Informes anteriores
+
+- [Laboratorio 1: PDF](laboratorios_anteriores/Laboratorio%201/main.pdf) y [LaTeX](laboratorios_anteriores/Laboratorio%201/main.tex).
+- [Laboratorio 2: PDF](laboratorios_anteriores/Laboratorio%202/main.pdf) y [LaTeX](laboratorios_anteriores/Laboratorio%202/main.tex).
+
+Se incluyen fuentes, imágenes y archivos de apoyo disponibles. Son copias de trabajo del dispositivo; los PDF se conservaron tal como estaban, sin recompilar ni certificar su correspondencia con la última edición LaTeX. Para editar los informes anteriores, usar las carpetas de este repositorio. El informe del laboratorio 3 permanece en la raíz.

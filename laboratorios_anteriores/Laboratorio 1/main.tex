@@ -1,0 +1,338 @@
+% Esqueleto basado en los informes IEEE de micro/Laboratorios.
+% Completar autores, textos entre corchetes y evidencias antes de entregar.
+% La consigna limita el informe completo a 6 paginas.
+% Archivo autocontenido para el editor de Codex u Overleaf.
+\documentclass[conference]{IEEEtran}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[hidelinks]{hyperref}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\lstset{language=VHDL,basicstyle=\ttfamily\footnotesize,
+  frame=single,breaklines=true,columns=fullflexible,
+  keepspaces=true,showstringspaces=false,captionpos=b}
+\newcommand{\pendiente}[1]{\textit{[Completar: #1.]}}
+\newcommand{\evidencia}[1]{%
+  \fbox{\parbox[c][2.4cm][c]{0.90\columnwidth}{\centering\small #1}}}
+
+\begin{document}
+
+\title{Electrónica Digital 2: Laboratorio 1\\
+Introducción a Vivado y a la placa Spartan Edge Accelerator}
+\author{\IEEEauthorblockN{[Nombre y apellido]}
+\IEEEauthorblockA{\textit{Ingeniería en Mecatrónica}\\
+\textit{Universidad Tecnológica (UTEC)}\\
+Fray Bentos, Uruguay\\
+{[Correo institucional]}}
+\and
+\IEEEauthorblockN{[Nombre y apellido]}
+\IEEEauthorblockA{\textit{Ingeniería en Mecatrónica}\\
+\textit{Universidad Tecnológica (UTEC)}\\
+Fray Bentos, Uruguay\\
+{[Correo institucional]}}}
+% Agregar un tercer bloque con \and si corresponde; maximo 3 integrantes.
+\maketitle
+
+\begin{abstract}
+\pendiente{redactar al finalizar el trabajo un resumen del objetivo,
+del circuito combinacional desarrollado en VHDL, de su verificación
+mediante testbench y de su implementación en la FPGA. Indicar el
+resultado principal observado sin introducir datos no medidos}
+\end{abstract}
+\begin{IEEEkeywords}
+FPGA, VHDL, Vivado, Spartan-7, lógica combinacional, testbench.
+\end{IEEEkeywords}
+
+\section{Introducción}
+El diseño digital sobre una FPGA permite convertir una descripción
+de hardware en un circuito configurable. Este laboratorio de Electrónica
+Digital 2 propone una primera aproximación a ese proceso utilizando
+VHDL, Vivado y la placa Spartan Edge Accelerator con el shield UTEC.
+El objetivo es relacionar la especificación lógica de un circuito con
+su simulación y, posteriormente, con su comportamiento físico.
+
+La actividad comienza con una compuerta AND de dos entradas para
+familiarizarse con la herramienta. El ejercicio evaluado consiste en
+un circuito combinacional de tres entradas ($A$, $B$ y $C$) y tres
+salidas ($X$, $Y$ y $Z$), definido por una tabla de verdad. Su
+verificación requiere recorrer las ocho combinaciones tanto en el
+testbench como en la placa, mediante dip-switches y LEDs~\cite{guia}.
+
+\subsection{Objetivos}
+\begin{itemize}
+\item Comprender las etapas del flujo de diseño en FPGA con Vivado.
+\item Distinguir la entidad y la arquitectura de una descripción VHDL.
+\item Describir un circuito combinacional a partir de su tabla de verdad.
+\item Verificar las ocho combinaciones mediante simulación funcional.
+\item Asignar las señales a los pines y validar el circuito en la placa.
+\end{itemize}
+
+\section{Marco teórico}
+\subsection{FPGA y flujo de diseño}
+Una FPGA contiene recursos lógicos e interconexiones configurables.
+Para un circuito combinacional, las salidas dependen de las entradas
+actuales, sin requerir almacenamiento del estado anterior. La
+descripción VHDL expresa relaciones de hardware que pueden operar
+concurrentemente; no representa una secuencia de instrucciones
+ejecutadas por un microcontrolador.
+
+El flujo parte de la descripción y su simulación funcional. La síntesis
+transforma el código RTL en una red lógica; la implementación ubica
+y conecta los recursos en la FPGA. Luego se genera el bitstream que
+configura el dispositivo~\cite{vivado_impl}. En este laboratorio se
+prevé cargarlo por JTAG desde Vivado~\cite{guia}.
+
+\subsection{Descripción de circuitos en VHDL}
+La entidad define la interfaz externa, incluidos los nombres, modos
+y tipos de los puertos. La arquitectura describe el comportamiento o
+la estructura que corresponde a esa interfaz~\cite{vhdl_entidad}.
+Se propone agrupar las entradas como $ABC$, con $A$ como bit más
+significativo, y las salidas como $XYZ$, con $X$ en esa misma posición.
+
+Una asignación seleccionada \texttt{with/select} permite asociar cada
+entrada con una salida; \texttt{when/else} expresa alternativas
+condicionales. La descripción debe asignar las salidas para todos
+los casos, evitando almacenamiento involuntario. El tipo
+\texttt{STD\_LOGIC} incluye valores distintos de \texttt{'0'} y
+\texttt{'1'}, como \texttt{'U'} y \texttt{'X'}; por ello,
+\texttt{others} permite definir el comportamiento del modelo ante
+combinaciones no binarias. Ese tratamiento no reemplaza la
+verificación de las ocho filas de la tabla.
+
+\subsection{Testbench y simulación}
+El testbench instancia el circuito y aplica estímulos sin formar parte
+del hardware que se programa. Para tres entradas binarias existen
+$2^3=8$ combinaciones. Se prevé aplicar cada una, esperar la
+actualización de las señales y comparar las salidas con la tabla.
+La simulación RTL comprueba el modelo; una simulación temporal de
+un diseño implementado puede incorporar sus retardos~\cite{simulacion}.
+
+\subsection{Placa SEA y shield UTEC}
+La Spartan Edge Accelerator integra una FPGA Spartan-7 XC7S15 y
+admite conexión con shields de formato Arduino~\cite{sea}.
+Según la guía, el shield UTEC proporciona los dip-switches y LEDs
+que se usarán como entradas y salidas. Las señales se configurarán
+con \texttt{LVCMOS33}. La alimentación de 3,3 V de los dip-switches
+requiere llevar \texttt{AR\_3V3\_EN}, conectado al pin L13, a
+\texttt{'0'}~\cite{guia}. La correspondencia de las otras seis señales
+con pines físicos queda pendiente de consultar el manual del shield.
+
+\section{Metodología}
+\subsection{Materiales y herramientas}
+\begin{itemize}
+\item Spartan Edge Accelerator Board y shield multifunción UTEC.
+\item Cable USB-C y programador JTAG HS2 o HS3: \pendiente{modelo usado}.
+\item Vivado: \pendiente{versión utilizada; la guía indica 2025.1}.
+\item Manuales de la SEA y del shield disponibles en Moodle.
+\end{itemize}
+\pendiente{registrar el dispositivo seleccionado y confirmar con el
+manual la parte \texttt{xc7s15ftgb196-1} indicada en la guía}
+
+\subsection{Familiarización con Vivado: compuerta AND}
+\pendiente{resumir la creación del proyecto RTL, la descripción de la
+AND, su testbench, las restricciones y la prueba en placa. Mantener
+esta parte breve para priorizar el ejercicio evaluado}
+
+\subsection{Circuito combinacional solicitado}
+La Tabla~\ref{tab:verdad} reproduce la especificación de la consigna.
+Se considera a $A$ como el bit más significativo de la entrada.
+\begin{table}[htbp]
+\centering
+\caption{Tabla de verdad del circuito solicitado}
+\label{tab:verdad}
+\begin{tabular}{ccc|ccc}
+\toprule
+$A$ & $B$ & $C$ & $X$ & $Y$ & $Z$\\
+\midrule
+0 & 0 & 0 & 1 & 0 & 0\\
+0 & 0 & 1 & 0 & 1 & 1\\
+0 & 1 & 0 & 0 & 0 & 1\\
+0 & 1 & 1 & 1 & 1 & 0\\
+1 & 0 & 0 & 0 & 1 & 0\\
+1 & 0 & 1 & 1 & 1 & 1\\
+1 & 1 & 0 & 0 & 0 & 0\\
+1 & 1 & 1 & 1 & 0 & 1\\
+\bottomrule
+\end{tabular}
+\end{table}
+\pendiente{explicar los puertos, los vectores de entrada y salida, la
+sentencia elegida y el caso \texttt{others}. Incorporar un fragmento
+representativo del código y remitir al archivo VHDL completo}
+
+\subsection{Testbench y simulación funcional}
+\pendiente{describir la instancia del circuito, el tiempo entre
+estímulos, el recorrido de las ocho combinaciones y el criterio de
+comparación con la tabla. Indicar la duración total de la simulación}
+
+\subsection{Restricciones y programación de la placa}
+\pendiente{completar la Tabla~\ref{tab:pines} a partir del manual del
+shield. Explicar síntesis, implementación, revisión de mensajes,
+generación del bitstream y programación por Hardware Manager}
+\begin{table}[htbp]
+\centering
+\caption{Asignación de señales en el archivo XDC}
+\label{tab:pines}
+\small
+\begin{tabular}{lll}
+\toprule
+Señal & Elemento físico & Pin FPGA\\
+\midrule
+$A$ & [Dip-switch] & [Pin]\\
+$B$ & [Dip-switch] & [Pin]\\
+$C$ & [Dip-switch] & [Pin]\\
+$X$ & [LED] & [Pin]\\
+$Y$ & [LED] & [Pin]\\
+$Z$ & [LED] & [Pin]\\
+\texttt{AR\_3V3\_EN} & Habilitación 3,3 V & L13\\
+\bottomrule
+\end{tabular}
+\end{table}
+Según la guía, se utiliza \texttt{LVCMOS33} y se fuerza
+\texttt{AR\_3V3\_EN} a \texttt{'0'} para habilitar la alimentación
+de los dip-switches.
+
+\section{Resultados y discusión}
+\subsection{Resultados de simulación}
+\pendiente{incluir y analizar la captura de las ocho combinaciones;
+identificar entradas, salidas, escala temporal y posibles discrepancias}
+\begin{figure}[htbp]
+\centering
+\evidencia{Insertar captura de la simulación en Vivado.\\
+Deben verse $A$, $B$, $C$, $X$, $Y$ y $Z$.}
+% Reemplazar \evidencia por \includegraphics al incorporar la captura.
+\caption{Espacio reservado para la verificación por simulación.}
+\label{fig:simulacion}
+\end{figure}
+
+\subsection{Validación en hardware}
+\pendiente{documentar las pruebas en placa y completar las columnas
+de observaciones de la Tabla~\ref{tab:validacion}. No marcar coincidencia
+hasta realizar las pruebas}
+\begin{table}[htbp]
+\centering
+\caption{Comparación entre especificación, simulación y placa}
+\label{tab:validacion}
+\begin{tabular}{cccc}
+\toprule
+$ABC$ & $XYZ$ esperado & Simulado & En placa\\
+\midrule
+000 & 100 & [---] & [---]\\
+001 & 011 & [---] & [---]\\
+010 & 001 & [---] & [---]\\
+011 & 110 & [---] & [---]\\
+100 & 010 & [---] & [---]\\
+101 & 111 & [---] & [---]\\
+110 & 000 & [---] & [---]\\
+111 & 101 & [---] & [---]\\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{figure}[htbp]
+\centering
+\evidencia{Insertar fotografía de la SEA con el shield.\\
+Identificar los tres dip-switches y los tres LEDs.}
+\caption{Espacio reservado para el montaje utilizado.}
+\label{fig:montaje}
+\end{figure}
+\pendiente{agregar enlace al video que muestre las ocho combinaciones,
+e indicar incidencias y cómo se resolvieron}
+
+\section{Preguntas del laboratorio}
+\subsection{Entidad y arquitectura}
+La entidad establece qué señales entran y salen del circuito; la
+arquitectura especifica cómo se relacionan. Una entidad puede tener
+varias arquitecturas, permitiendo describir implementaciones
+alternativas de una misma interfaz~\cite{vhdl_entidad}. Para este
+ejercicio, una arquitectura podría describir la tabla y otra las
+ecuaciones booleanas, conservando los mismos puertos.
+
+\subsection{Función del archivo XDC}
+El archivo XDC reúne restricciones del diseño. En este laboratorio,
+\texttt{PACKAGE\_PIN} vincula los puertos con terminales físicos y
+\texttt{IOSTANDARD} define el estándar eléctrico. También existen
+restricciones temporales~\cite{xdc}. Sin la asignación de pines no
+queda establecida la conexión con los dip-switches y LEDs. La lógica
+puede simularse, pero no se garantiza el conexionado previsto en
+hardware; las comprobaciones de Vivado pueden impedir generar el
+bitstream mientras existan puertos sin restricciones adecuadas.
+
+\subsection{Estándar LVCMOS33}
+\texttt{LVCMOS33} corresponde a señales CMOS referidas a una
+alimentación nominal de 3,3 V. La guía exige ese estándar para las
+conexiones utilizadas~\cite{guia}. Elegir un estándar en el XDC no
+convierte físicamente una señal de 5 V en una de 3,3 V: los niveles
+aplicados deben ser compatibles con el banco de E/S y sus límites
+eléctricos. Por ello no corresponde asumir compatibilidad directa
+con 5 V. La identificación del banco y sus límites concretos se
+confirmará con la documentación de la placa.
+
+\subsection{Habilitación del riel de 3,3 V}
+Según la consigna, \texttt{AR\_3V3\_EN} controla un interruptor de
+alimentación mediante MOSFET, activo en bajo. Debe declararse como
+salida, asignarse al pin L13 y mantenerse en \texttt{'0'} para
+habilitar el riel del conector Arduino. Sin esa habilitación, los
+dip-switches carecen de alimentación y, según la guía, sus entradas
+se leen como cero. Los LEDs conectados al header FPGAIO no dependen
+de esa habilitación~\cite{guia}. Esta explicación aún no constituye
+una observación experimental del montaje.
+
+\subsection{Expresión booleana mínima}
+Se elige la salida $X$, cuyos unos aparecen en las entradas $000$,
+$011$, $101$ y $111$. Con $A$ como bit más significativo:
+\begin{equation}
+X=\sum m(0,3,5,7).
+\end{equation}
+En un mapa de Karnaugh, los minterms $3$ y $7$ se agrupan para
+obtener $BC$, y los minterms $5$ y $7$ producen $AC$. El minterm
+$0$ queda aislado, pues todas sus celdas adyacentes valen cero.
+La suma de productos mínima resulta:
+\begin{equation}
+\boxed{X=\overline{A}\,\overline{B}\,\overline{C}+BC+AC.}
+\label{eq:x_minima}
+\end{equation}
+El término del minterm $0$ es indispensable; $BC$ es necesario para
+cubrir $3$ y $AC$ para cubrir $5$. Al evaluar la ecuación en orden
+de $000$ a $111$, se obtiene $1,0,0,1,0,1,0,1$, coincidiendo con
+la columna $X$ de la Tabla~\ref{tab:verdad}. Esta equivalencia se
+refiere a entradas binarias estables; no demuestra igualdad de
+retardos físicos ni determina el tratamiento de valores no binarios.
+
+\subsection{Simulación funcional y placa real}
+La simulación funcional evalúa la descripción RTL con los estímulos
+del testbench. La placa agrega retardos de propagación, condiciones
+eléctricas y elementos físicos. Por ejemplo, el rebote de un
+dip-switch o una alimentación deshabilitada no aparecen en un
+testbench que solo aplica cambios binarios ideales. Al cambiar
+varios interruptores también pueden producirse combinaciones
+intermedias. Por tanto, una coincidencia en simulación debe
+complementarse con la prueba física. Vivado distingue simulación
+RTL de simulación posterior a implementación con información
+temporal~\cite{simulacion}.
+
+\section{Conclusiones}
+\pendiente{evaluar el cumplimiento de los objetivos con base en los
+resultados, sintetizar lo aprendido sobre el flujo FPGA y describir
+limitaciones o mejoras. Evitar afirmar éxito antes de verificarlo}
+
+\begin{thebibliography}{00}
+\bibitem{guia} UTEC, ``Laboratorio 1: Introducción a Vivado y a la placa
+Spartan Edge Accelerator,'' Electrónica Digital 2, guía de laboratorio.
+% Agregar solamente fuentes efectivamente consultadas y citarlas en el texto.
+% Completar datos de los manuales SEA/shield y documentación VHDL/Vivado.
+\bibitem{vivado_impl} AMD, ``Design Entry and Implementation,'' [En línea]. Disponible: \url{https://www.amd.com/en/products/software/adaptive-socs-and-fpgas/vivado/implementation.html}. Consultado: 2 de octubre de 2026.
+\bibitem{vhdl_entidad} AMD, ``VHDL Entity and Architecture Descriptions, UG901,'' [En línea]. Disponible: \url{https://docs.amd.com/r/en-US/ug901-vivado-synthesis/VHDL-Entity-and-Architecture-Descriptions}. Consultado: 2 de octubre de 2026.
+\bibitem{xdc} AMD, ``Vivado Design Suite User Guide: Using Constraints, UG903,'' [En línea]. Disponible: \url{https://docs.amd.com/r/en-US/ug903-vivado-using-constraints}. Consultado: 2 de octubre de 2026.
+\bibitem{simulacion} AMD, ``Vivado Design Suite User Guide: Logic Simulation, UG900,'' [En línea]. Disponible: \url{https://docs.amd.com/r/en-US/ug900-vivado-logic-simulation}. Consultado: 2 de octubre de 2026.
+\bibitem{sea} Seeed Studio, ``Spartan Edge Accelerator Board,'' [En línea]. Disponible: \url{https://wiki.seeedstudio.com/Spartan-Edge-Accelerator-Board/}. Consultado: 2 de octubre de 2026.
+\end{thebibliography}
+
+% Entregables externos al informe: VHDL completo, testbench, captura,
+% archivo XDC y video de las ocho combinaciones.
+% Evitar anexar codigo extenso si compromete el maximo de 6 paginas.
+\end{document}

@@ -1,0 +1,34 @@
+\section{Introducción}
+
+Una unidad aritmético-lógica (ALU) reúne operaciones aritméticas,
+lógicas y de comparación en un circuito cuya salida se selecciona
+mediante un código de operación. Su descripción en VHDL permite
+estudiar tanto el comportamiento combinacional como la organización
+interna del hardware y su verificación mediante simulación.
+
+El Laboratorio 2 de Electrónica Digital 2 propone una ALU de
+dieciséis operaciones, con dos operandos sin signo de cuatro bits,
+un resultado del mismo ancho y las banderas Carry y Zero. El trabajo
+se divide en una descripción monolítica, Parte A, y una
+reestructuración jerárquica, Parte B, que conserva la interfaz y el
+comportamiento de la primera versión~\cite{guialab2}.
+
+Esta organización permite relacionar la especificación funcional
+con dos formas de describir el mismo sistema. Además de comprobar
+las operaciones, interesa analizar cómo la división en módulos
+facilita reutilizar un sumador y verificar cada bloque antes de
+integrarlo en la ALU completa.
+
+\subsection{Objetivos}
+\begin{itemize}
+\item Describir una ALU combinacional de dieciséis operaciones
+utilizando el paquete \texttt{numeric\_std}.
+\item Implementar las banderas de estado y verificar los casos de
+borde de la aritmética de cuatro bits.
+\item Reorganizar el diseño mediante componentes, reutilizando un
+único sumador dentro de la unidad aritmética.
+\item Verificar cada módulo y el sistema completo mediante bancos
+de prueba autoverificables.
+\item Contrastar las dos versiones y validar su funcionamiento en
+la placa Spartan Edge Accelerator con el shield UTEC.
+\end{itemize}

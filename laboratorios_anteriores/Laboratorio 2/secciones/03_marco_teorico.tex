@@ -1,0 +1,119 @@
+\section{Marco teórico}
+
+\subsection{Lógica combinacional y descripción en VHDL}
+En un circuito combinacional, las salidas dependen de las entradas
+actuales y no de un estado almacenado. En VHDL, la entidad define
+los puertos y la arquitectura describe el comportamiento o las
+conexiones entre los bloques. Aunque las instrucciones dentro de un
+proceso se evalúan en orden, los procesos y las asignaciones
+concurrentes representan circuitos que operan en paralelo~\cite{fundamentos}.
+
+Un proceso combinacional debe ser sensible a todas las señales que
+lee y asignar sus salidas para cada alternativa de ejecución. Las
+asignaciones incompletas pueden inferir latches, mientras que una
+lista de sensibilidad incompleta puede producir diferencias entre
+la simulación y el hardware sintetizado. Una sentencia \texttt{case}
+con valores por defecto y una rama \texttt{when others} permite
+describir de forma completa la selección por opcode~\cite{combinacional}.
+
+Las variables, asignadas con \texttt{:=}, actualizan su valor
+inmediatamente dentro del proceso. Las señales, asignadas con
+\texttt{<=}, programan una actualización posterior. Esta diferencia
+resulta relevante al calcular un resultado temporal y derivar de
+él una bandera dentro del mismo proceso~\cite{fundamentos}.
+
+\subsection{Tipos numéricos y aritmética de cuatro bits}
+El paquete \texttt{ieee.std\_logic\_1164} define los tipos
+\texttt{std\_logic} y \texttt{std\_logic\_vector}. El paquete
+\texttt{ieee.numeric\_std} incorpora los tipos \texttt{unsigned} y
+\texttt{signed}, que hacen explícita la interpretación numérica de
+los vectores y permiten aplicar operaciones aritméticas y
+comparaciones~\cite{combinacional}. En este laboratorio se utiliza
+la interpretación sin signo indicada en la consigna.
+
+Un operando sin signo de cuatro bits representa valores entre
+$0$ y $2^4-1=15$. Si se conservan únicamente los cuatro bits menos
+significativos de un resultado aritmético, el valor se reduce
+módulo $16$. Por ejemplo, $15+1$ produce \texttt{0000} con acarreo,
+y $0-1$ produce \texttt{1111} con préstamo. El resultado binario
+de la resta sigue siendo un vector sin signo; no representa un
+número negativo bajo esta interpretación~\cite{casoalu}.
+
+Para obtener el acarreo de una suma es necesario extender los
+operandos antes de operar. Si $T$ es el resultado extendido:
+\begin{equation}
+T=(0\mathbin{\&}A)+(0\mathbin{\&}B),\qquad
+R=T(3\!:\!0),\quad C=T(4),
+\end{equation}
+donde $\&$ indica concatenación. La extensión conserva el quinto
+bit que se perdería al calcular directamente en cuatro bits.
+
+\subsection{Banderas de estado}
+Según la especificación, Carry expresa el acarreo de salida en
+$A+B$ y el préstamo (\textit{borrow}) en $A-B$. En la resta sin
+signo existe préstamo cuando $A<B$. Para las operaciones lógicas
+y las comparaciones, la consigna fija Carry en cero~\cite{guialab2}.
+El acarreo sin signo y el desbordamiento de una operación con signo
+son condiciones diferentes y dependen de la interpretación de los bits.
+Para las operaciones restantes se adopta la convención de la
+Tabla~\ref{tab:carry}: acarreo al incrementar, préstamo al decrementar
+o calcular $0-X$, y bit descartado en los desplazamientos lógicos.
+Esta extensión es una decisión de diseño del equipo.
+
+Zero se obtiene del resultado final:
+\begin{equation}
+Z=\begin{cases}
+1,& R=\texttt{0000},\\
+0,& R\ne\texttt{0000}.
+\end{cases}
+\end{equation}
+Por tanto, Zero no indica por sí sola si los operandos son iguales.
+En la operación de comparación $A=B$, un resultado verdadero se
+codifica como \texttt{0001} y deja Zero en cero.
+
+\subsection{Complemento a dos y reutilización del sumador}
+Para un vector $X$ de cuatro bits, su complemento a dos corresponde
+a $(-X)\bmod16$ y se obtiene invirtiendo sus bits y sumando uno.
+La misma identidad permite expresar una resta como una suma:
+\begin{equation}
+A-B\equiv A+\overline{B}+1\pmod{16}.
+\end{equation}
+Un sumador con entrada de acarreo permite implementar suma, resta,
+incremento, decremento y complemento a dos mediante la selección de
+sus operandos y de \texttt{cin}. La consigna utiliza esta propiedad
+para reutilizar una sola instancia de \texttt{adder4} en la unidad
+aritmética~\cite{guialab2}. En la resta implementada mediante
+$A+\overline{B}+1$, el acarreo de salida indica ausencia de préstamo;
+la bandera borrow corresponde a su negación.
+
+\subsection{Diseño jerárquico}
+El diseño jerárquico divide un sistema en bloques con interfaces
+definidas. Las declaraciones \texttt{component} describen los
+puertos de los componentes y las instancias con \texttt{port map}
+los conectan mediante señales internas~\cite{jerarquia}.
+En una ALU, distintos bloques pueden producir resultados en paralelo
+y un multiplexor selecciona la salida correspondiente al
+opcode~\cite{casoalu}.
+
+La metodología top-down parte de la función global para definir
+bloques e interfaces. La implementación bottom-up comienza por los
+bloques básicos y avanza hacia su integración. Esta combinación
+permite comprobar cada módulo y localizar errores antes de verificar
+el sistema completo. La división en archivos o componentes no
+garantiza por sí sola una reducción de recursos o retardos; esos
+aspectos requieren evaluar el diseño sintetizado.
+
+\subsection{Testbench y verificación}
+Un banco de pruebas instancia el circuito bajo prueba, genera
+estímulos y comprueba sus salidas. Las sentencias \texttt{assert}
+permiten detectar diferencias respecto de un resultado esperado,
+acompañadas de un mensaje que identifique el caso~\cite{fundamentos,casoalu}.
+El banco no forma parte del hardware implementado.
+
+La ALU tiene $16\times16\times16=4096$ combinaciones binarias de
+opcode, $A$ y $B$. Este espacio permite plantear una comprobación
+exhaustiva del resultado y de las banderas. El sumador de cuatro
+bits con \texttt{cin} presenta $16\times16\times2=512$
+combinaciones. Comparar ambas ALU comprueba su equivalencia, pero
+tambi\'en se necesita un modelo de referencia independiente para
+detectar errores compartidos por las dos versiones.
