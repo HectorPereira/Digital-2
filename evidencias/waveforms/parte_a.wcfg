@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="parte_a.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_parte_A" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+   </zoom_setting>
+   <column_width_setting>
+   </column_width_setting>
+   <WVObjectSize size="4" />
+   <wvobject fp_name="/tb_parte_A/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_parte_A/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_parte_A/en" type="logic">
+      <obj_property name="ElementShortName">en</obj_property>
+      <obj_property name="ObjectShortName">en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_parte_A/q" type="array">
+      <obj_property name="ElementShortName">q[2:0]</obj_property>
+      <obj_property name="ObjectShortName">q[2:0]</obj_property>
+   </wvobject>
+</wave_config>
