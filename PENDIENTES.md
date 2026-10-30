@@ -27,3 +27,6 @@ El LaTeX y los enlaces externos del PDF se revisaron: solo apuntan a documentaci
 
 ## Privacidad del entorno de colaboración
 No mencionar ni enlazar el GitHub interno en los informes de entrega. Se quitó la sugerencia genérica de enlazar un repositorio en secciones/07_evidencias.tex. El PDF y LaTeX archivados en originales/ conservan esa sugerencia genérica; no contienen la URL de nuestro GitHub. No usar esos originales como entrega final.
+
+## Paquete Parte A recibido
+Proyecto recibido y revisado: faltan los tres VHDL, el XDC y el testbench. Ver parte_a/REVISION_RECIBIDO.md. La revisión de código y la simulación siguen pendientes.

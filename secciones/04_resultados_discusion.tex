@@ -1,4 +1,7 @@
 \section{Resultados y discusión}
+\subsection{Parte A: revisión del proyecto disponible}
+Se inspeccionó el archivo de proyecto de Vivado 2025.1 correspondiente a la Parte A. El dispositivo configurado fue \texttt{xc7s15ftgb196-1} y el módulo superior seleccionado fue \texttt{top\_A}. El proyecto declaró los archivos \texttt{divisor.vhd}, \texttt{contador.vhd}, \texttt{top\_A.vhd} y \texttt{top\_A.xdc}; sin embargo, estos archivos no estaban incluidos en el paquete disponible y sus referencias apuntaban a un directorio superior al del proyecto. Tampoco se incluyeron fuentes de testbench ni resultados de simulación. Por ello, esta revisión confirmó la configuración del proyecto, pero no permitió verificar el código, la síntesis, la temporización ni el funcionamiento en placa. La validación de la Parte A quedó pendiente de disponer de las fuentes y restricciones completas.
+
 \subsection{Parte A: simulación}
 \completar{Insertar la captura real: clk, rst, en y q, con escala de tiempo legible. Indicar MAX empleado, instantes de pulso, comparación con el modelo y resultado de assert si existió.}
 \begin{figure}[!t]\centering
