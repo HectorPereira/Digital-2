@@ -48,3 +48,6 @@ Prueba dedicada tb_carry con A=15, B=3: dos vueltas completas, ADD=18, carry=1 y
 
 ## Remapeo físico de Parte B
 A[0..3] en D6..D9 (grande 8,7,6,5); B[0..3] en D10..D13 (grande 4,3,2,1). Reset permanece D2, chico 4. Bitstream regenerado, DRC limpio y WNS 6.270 ns / WHS 0.275 ns. Repetir las pruebas físicas de B con este mapeo.
+
+## Orden final de bits confirmado
+A0..A3 = DIP grande 5,6,7,8; B0..B3 = DIP grande 1,2,3,4. MSB de A en 8 y de B en 4. Reset chico 4. Bitstream regenerado, WNS 5.913 ns y WHS 0.251 ns, DRC sin violaciones. Sustituye el orden anterior.

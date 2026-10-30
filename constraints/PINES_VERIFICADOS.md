@@ -10,14 +10,14 @@ Las posiciones de DIP fueron identificadas en la placa por el usuario. El mapeo 
 |---|---|---|---|
 | clk | reloj 100 MHz | H4 | — |
 | rst | D2 | A10 | Chico 4 |
-| A[0] | D6 | A4 | Grande 8 |
-| A[1] | D7 | A3 | Grande 7 |
-| A[2] | D8 | B3 | Grande 6 |
-| A[3] | D9 | A2 | Grande 5 |
-| B[0] | D10 | B2 | Grande 4 |
-| B[1] | D11 | B1 | Grande 3 |
-| B[2] | D12 | H1 | Grande 2 |
-| B[3] | D13 | H2 | Grande 1 |
+| A[0] | D9 | A2 | Grande 5 |
+| A[1] | D8 | B3 | Grande 6 |
+| A[2] | D7 | A3 | Grande 7 |
+| A[3] | D6 | A4 | Grande 8 |
+| B[0] | D13 | H2 | Grande 1 |
+| B[1] | D12 | H1 | Grande 2 |
+| B[2] | D11 | B1 | Grande 3 |
+| B[3] | D10 | B2 | Grande 4 |
 | AR_3V3_EN | alimentación activa baja | L13 | — |
 
 Los DIP chico 1, 2 y 3 quedan sin uso en la Parte B (D5, D4 y D3 respectivamente).
@@ -38,4 +38,4 @@ Los DIP chico 1, 2 y 3 quedan sin uso en la Parte B (D5, D4 y D3 respectivamente
 LED[0] es el bit menos significativo, pero el shield lo rotula LED1. En Parte B LED[4] (LED5 físico) muestra carry; LED[9:8] (LED10 y LED9 físicos) muestra op. Todos los puertos usan LVCMOS33. En ambas partes AR_3V3_EN se fuerza a cero en VHDL.
 
 ## Identificación física aportada por el usuario
-D2=chico 4; D3=chico 3; D4=chico 2; D5=chico 1; D6=grande 8; D7=grande 7; D8=grande 6; D9=grande 5; D10=grande 4. Combinada con los ocho contactos del DIP grande y D6..D13, D11..D13 corresponden a grande 3,2,1. La tabla principal refleja el nuevo mapeo, no el usado en la primera prueba de B.
+D2=chico 4; D3=chico 3; D4=chico 2; D5=chico 1; D6=grande 8; D7=grande 7; D8=grande 6; D9=grande 5; D10=grande 4. Combinada con los ocho contactos del DIP grande y D6..D13, D11..D13 corresponden a grande 3,2,1. La tabla principal refleja el mapeo final: A3 en grande 8 y B3 en grande 4.

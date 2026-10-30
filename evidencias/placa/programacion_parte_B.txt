@@ -1,4 +1,4 @@
-Parte B programada por JTAG con nuevo mapeo DIP grande.
-Dispositivo XC7S15; DONE=1; startup HIGH.
-A[0..3]=grande 8,7,6,5; B[0..3]=grande 4,3,2,1; rst=chico 4.
-Pendiente repetir pruebas funcionales con este mapeo.
+Parte B: orden final de bits cargado, DONE=1.
+A0..A3 = grande 5,6,7,8; B0..B3 = grande 1,2,3,4.
+Reset chico 4. LEDs sin cambios.
+Pendiente comprobar funcionalmente con este orden final.

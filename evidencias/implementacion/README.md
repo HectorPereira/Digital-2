@@ -5,7 +5,7 @@ Vivado 2025.1, xc7s15ftgb196-1, MAX=100000000, reloj 100 MHz. Síntesis y place/
 | Parte | LUT | Registros | WNS ns | WHS ns |
 |---|---:|---:|---:|---:|
 | A | 15 | 38 | 5.897 | 0.251 |
-| B | 16 | 32 | 6.270 | 0.275 |
+| B | 16 | 32 | 5.913 | 0.251 |
 
 TNS y THS cero en ambas. Los retardos externos de switches/LED no están especificados; el cierre temporal corresponde a las rutas restringidas internas. No se agregaron retardos ni excepciones ficticias para ocultar esos avisos.
 

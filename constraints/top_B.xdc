@@ -29,15 +29,15 @@ set_property IOSTANDARD LVCMOS33 [get_ports {LED[*]}]
 set_property PACKAGE_PIN L13 [get_ports {AR_3V3_EN}]
 set_property IOSTANDARD LVCMOS33 [get_ports {AR_3V3_EN}]
 
-# A y B en el DIP grande; posicion 8 es A[0], posicion 1 es B[3].
-set_property -dict {PACKAGE_PIN A4 IOSTANDARD LVCMOS33} [get_ports {A[0]}]; # D6, DIP grande 8
-set_property -dict {PACKAGE_PIN A3 IOSTANDARD LVCMOS33} [get_ports {A[1]}]; # D7, DIP grande 7
-set_property -dict {PACKAGE_PIN B3 IOSTANDARD LVCMOS33} [get_ports {A[2]}]; # D8, DIP grande 6
-set_property -dict {PACKAGE_PIN A2 IOSTANDARD LVCMOS33} [get_ports {A[3]}]; # D9, DIP grande 5
-set_property -dict {PACKAGE_PIN B2 IOSTANDARD LVCMOS33} [get_ports {B[0]}]; # D10, DIP grande 4
-set_property -dict {PACKAGE_PIN B1 IOSTANDARD LVCMOS33} [get_ports {B[1]}]; # D11, DIP grande 3
-set_property -dict {PACKAGE_PIN H1 IOSTANDARD LVCMOS33} [get_ports {B[2]}]; # D12, DIP grande 2
-set_property -dict {PACKAGE_PIN H2 IOSTANDARD LVCMOS33} [get_ports {B[3]}]; # D13, DIP grande 1
+# A y B en DIP grande: MSB en posiciones 8 y 4.
+set_property -dict {PACKAGE_PIN A2 IOSTANDARD LVCMOS33} [get_ports {A[0]}]; # D9, DIP grande 5
+set_property -dict {PACKAGE_PIN B3 IOSTANDARD LVCMOS33} [get_ports {A[1]}]; # D8, DIP grande 6
+set_property -dict {PACKAGE_PIN A3 IOSTANDARD LVCMOS33} [get_ports {A[2]}]; # D7, DIP grande 7
+set_property -dict {PACKAGE_PIN A4 IOSTANDARD LVCMOS33} [get_ports {A[3]}]; # D6, DIP grande 8
+set_property -dict {PACKAGE_PIN H2 IOSTANDARD LVCMOS33} [get_ports {B[0]}]; # D13, DIP grande 1
+set_property -dict {PACKAGE_PIN H1 IOSTANDARD LVCMOS33} [get_ports {B[1]}]; # D12, DIP grande 2
+set_property -dict {PACKAGE_PIN B1 IOSTANDARD LVCMOS33} [get_ports {B[2]}]; # D11, DIP grande 3
+set_property -dict {PACKAGE_PIN B2 IOSTANDARD LVCMOS33} [get_ports {B[3]}]; # D10, DIP grande 4
 
 # Propiedades de configuracion segun XDC maestro de SEA
 set_property CONFIG_VOLTAGE 3.3 [current_design]

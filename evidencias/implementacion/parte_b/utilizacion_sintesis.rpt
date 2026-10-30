@@ -1,9 +1,9 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Fri Oct 30 19:55:34 2026
+| Date         : Fri Oct 30 20:02:32 2026
 | Host         : HPVictus running 64-bit major release  (build 9200)
-| Command      : report_utilization -file {C:/Users/hecto/OneDrive/Documents/ChatGPT/UTEC/Digital 2/Laboratorio 3/build/implementacion_B_dip/utilizacion_sintesis.rpt}
+| Command      : report_utilization -file {C:/Users/hecto/OneDrive/Documents/ChatGPT/UTEC/Digital 2/Laboratorio 3/build/implementacion_B_msb/utilizacion_sintesis.rpt}
 | Design       : top_B
 | Device       : xc7s15ftgb196-1
 | Speed File   : -1
