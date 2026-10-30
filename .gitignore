@@ -1,0 +1,9 @@
+build/
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+.Xil/
+xsim.dir/

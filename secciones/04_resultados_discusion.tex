@@ -1,0 +1,37 @@
+\section{Resultados y discusión}
+\subsection{Parte A: simulación}
+\completar{Insertar la captura real: clk, rst, en y q, con escala de tiempo legible. Indicar MAX empleado, instantes de pulso, comparación con el modelo y resultado de assert si existió.}
+\begin{figure}[!t]\centering
+\fbox{\begin{minipage}[c][25mm][c]{0.85\columnwidth}\centering\small Captura de la simulación de la Parte A\end{minipage}}
+\caption{Verificación temporal del divisor y el contador. Imagen pendiente de incorporación.}\label{fig:simA}
+\end{figure}
+
+\subsection{Parte A: funcionamiento físico}
+\completar{Registrar los valores observados durante al menos diez segundos, la conmutación de LED0, el incremento cada segundo y el comportamiento del reset. Si no se implementó, indicar expresamente la limitación.}
+
+\subsection{Parte B: simulación}
+\completar{Insertar captura de al menos dos ciclos de la FSM; identificar clk, rst, en, op, A, B, resultado y carry. Analizar reset y sumas con acarreo.}
+\begin{figure}[!t]\centering
+\fbox{\begin{minipage}[c][25mm][c]{0.85\columnwidth}\centering\small Captura de la simulación de la Parte B\end{minipage}}
+\caption{Transiciones de la FSM y salidas del datapath. Imagen pendiente de incorporación.}\label{fig:simB}
+\end{figure}
+
+\subsection{Parte B: validación física}
+\completar{Describir valores A y B usados, secuencia visible en LED9:8, resultado en LED3:0, carry en LED4 y reset. Comparar lo esperado con lo observado, sin marcar como verificados los casos aún no ensayados.}
+
+\begin{table}[!t]
+\centering\caption{Registro de pruebas de la FSM y del datapath}\label{tab:pruebas}
+\begin{tabular}{@{}ccccc@{}}\toprule
+\textbf{A} & \textbf{B} & \textbf{op} & \textbf{Esperado} & \textbf{Observado}\\\midrule
+0101 & 0011 & 00 & 00001 & --\\
+0101 & 0011 & 01 & 00111 & --\\
+0101 & 0011 & 10 & 00110 & --\\
+0101 & 0011 & 11 & 01000 & --\\
+1111 & 0011 & 11 & 10010 & --\\\bottomrule
+\end{tabular}
+\end{table}
+La Tabla~\ref{tab:pruebas} presenta casos de referencia calculados, no mediciones. El campo observado quedó sin completar hasta su contrastación experimental. Los cinco bits de salida se representaron como \texttt{LED4:0}.
+
+\subsection{Discusión y limitaciones}
+\completar{Analizar diferencias entre simulación y placa, problemas concretos de restricciones, síntesis, lectura de switches o temporización; explicar sus causas y las soluciones efectivamente aplicadas. Valorar la legibilidad del video e indicar si las tomas permitieron verificar las entradas y salidas.}
+

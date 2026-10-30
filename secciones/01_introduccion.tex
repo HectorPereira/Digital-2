@@ -1,0 +1,16 @@
+\section{Introducción}
+En el Laboratorio 3 de Electrónica Digital 2 se abordó el diseño de circuitos síncronos mediante VHDL sobre una FPGA Spartan-7, conforme a la consigna de la asignatura \cite{consigna}. Se plantearon dos desarrollos relacionados: en la Parte A, un divisor de frecuencia y un contador binario de diez bits; en la Parte B, una máquina de estados finitos (FSM) encargada de secuenciar operaciones lógicas y aritméticas. La habilitación temporal diseñada para la primera parte se reutilizó conceptualmente en la segunda.
+
+La validación se dividió en simulación funcional e implementación física. \completar{Precisar aquí, en pasado, cuáles etapas se completaron realmente y cuáles quedaron sin ejecutar.}
+
+\subsection{Objetivos}
+Se establecieron los siguientes objetivos:
+\begin{itemize}
+\item Describir procesos síncronos en VHDL mediante \texttt{rising\_edge} y reset.
+\item Calcular e implementar un divisor basado en un contador módulo \texttt{MAX}.
+\item Implementar un contador ascendente con habilitación \emph{clock enable}.
+\item Describir una FSM de Moore mediante estados enumerados y tres procesos.
+\item Integrar la FSM como unidad de control y un \emph{datapath} combinacional.
+\item Contrastar las formas de onda simuladas con el comportamiento de la FPGA.
+\end{itemize}
+

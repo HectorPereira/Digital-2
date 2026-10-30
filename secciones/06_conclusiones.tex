@@ -1,0 +1,9 @@
+\section{Conclusiones}
+La solución propuesta mostró una relación funcional directa entre las dos partes: la habilitación periódica requerida para incrementar un contador también permitió regular las transiciones de una FSM sin agregar un dominio de reloj. Esta decisión de diseño fue coherente con las recomendaciones del material del curso sobre distribución de reloj en FPGA \cite{cursodiv}.
+
+La separación del control y del datapath permitió distinguir el estado de la operación de los valores procesados. Asimismo, el modelo de Moore hizo posible interpretar el código \texttt{op} sin depender de los operandos, aunque el resultado combinacional sí dependiera de ellos \cite{cursofsm}.
+
+\completar{Agregar análisis experimental: contrastar periodicidad, reset, dos ciclos de FSM y resultados del datapath usando evidencia propia; identificar discrepancias, causas y correcciones reales. Sin estos datos no es posible concluir que el hardware funcionó según lo previsto.}
+
+\completar{Añadir una mejora específica fundamentada en una dificultad observada. Evaluar la calidad del video: encuadre solamente de la placa, iluminación, switches y LEDs legibles, ritmo pausado y explicación de las pruebas.}
+

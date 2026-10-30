@@ -1,0 +1,69 @@
+\section{Metodología}
+\subsection{Materiales y herramientas}
+Se dispuso como plataforma de referencia de la Spartan Edge Accelerator Board con FPGA Xilinx Spartan-7 XC7S15, el shield multifunción UTEC, el cable USB-C, el programador JTAG HS2 y Vivado, versión indicada 2025.1 \cite{consigna}. \completar{Confirmar modelo de programador, versión efectiva del software, dispositivo exacto y componentes realmente utilizados.}
+
+\subsection{Parte A: divisor de frecuencia}
+Se diseñó la interfaz del módulo \texttt{divisor} con entradas \texttt{clk} y \texttt{rst}, salida \texttt{en} y genérico \texttt{MAX}. Se especificó un contador interno que se reiniciaba al alcanzar \(\mathrm{MAX}-1\) y activaba \texttt{en} durante un único ciclo. Para un reloj de 100 MHz y un pulso por segundo, se obtuvo
+\begin{equation}
+\mathrm{MAX}_{1\,\mathrm{Hz}}=\frac{100\times10^6}{1}=100\,000\,000.
+\end{equation}
+Para obtener 1 kHz, el valor correspondiente fue \(\mathrm{MAX}_{1\,\mathrm{kHz}}=100\,000\). El contador interno del divisor de 1 Hz requirió \(\lceil\log_2(100\,000\,000)\rceil=27\) bits. El valor terminal se estableció en \(\mathrm{MAX}-1\), no en \(\mathrm{MAX}\), para evitar un ciclo adicional.
+
+\subsection{Parte A: contador e integración}
+Se definió un contador ascendente con genérico \texttt{N=10}, reset síncrono y habilitación \texttt{en}. Su salida \texttt{q(9 downto 0)} se asignó a los diez LEDs, con \texttt{LED0} como bit menos significativo. En el módulo superior, la salida \texttt{en} del divisor se conectó a la entrada homónima del contador. Así, el registro solamente incrementaba cuando recibía un pulso de habilitación. El rango de diez bits fue de 0 a 1023, seguido de desborde a cero.
+
+\subsection{Comportamiento temporal esperado}
+El pulso \texttt{en} fue especificado como una habilitación de un único ciclo de reloj cada \texttt{MAX} ciclos. Con \texttt{MAX=4}, la separación entre dos activaciones consecutivas fue de cuatro períodos de reloj. Con \texttt{MAX=100\,000\,000} y reloj de 100 MHz, el intervalo fue de un segundo. En un contador binario, cada bit dividió por dos la frecuencia de la señal cuadrada representada por el bit inmediato inferior \cite{cursodiv}. El avance de la cuenta permaneció sujeto a \texttt{en}, no a un flanco de una señal generada por lógica combinacional.
+
+\subsection{Parte B: FSM y diagrama de estados}
+Se definieron los estados enumerados \texttt{S\_AND}, \texttt{S\_OR}, \texttt{S\_XOR} y \texttt{S\_ADD}. Cada pulso de habilitación provocó, por especificación, una transición al siguiente estado y, después de \texttt{S\_ADD}, el retorno a \texttt{S\_AND}. El reset se definió con destino \texttt{S\_AND}. Se separaron el registro de estado, la lógica combinacional del próximo estado y la decodificación de la salida \texttt{op}, siguiendo el patrón de tres procesos presentado en el material del curso \cite{cursofsm}. La habilitación se consideró dentro de la lógica de transición o del registro, sin generar un segundo reloj.
+
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[>=Stealth, every node/.style={font=\scriptsize}, st/.style={draw,rounded corners,minimum width=18mm,minimum height=8mm,align=center}, node distance=12mm and 10mm]
+\node[st] (a) {S\_AND\\00};
+\node[st,right=of a] (b) {S\_OR\\01};
+\node[st,below=of b] (c) {S\_XOR\\10};
+\node[st,left=of c] (d) {S\_ADD\\11};
+\draw[->] (a) -- node[above]{en} (b);
+\draw[->] (b) -- node[right]{en} (c);
+\draw[->] (c) -- node[below]{en} (d);
+\draw[->] (d) -- node[left]{en} (a);
+\end{tikzpicture}
+\caption{Diagrama de transición especificado para la FSM. Debe verificarse su correspondencia con el código final.}\label{fig:fsm}
+\end{figure}
+
+\subsection{Parte B: datapath e integración}
+El datapath recibió \texttt{A(3:0)}, \texttt{B(3:0)} y \texttt{op(1:0)}. Se definieron las operaciones y la visualización indicadas en la Tabla~\ref{tab:ops}. La suma se representó en cinco bits para conservar el acarreo, mientras que las operaciones lógicas se expresaron en cuatro bits. El divisor de la Parte A fue incorporado como fuente de habilitación para la FSM.
+
+\begin{table}[!t]
+\centering\caption{Codificación y salidas de la Parte B}\label{tab:ops}
+\begin{tabular}{@{}lllp{0.28\columnwidth}@{}}\toprule
+\textbf{op} & \textbf{Estado} & \textbf{Cálculo} & \textbf{Salidas}\\\midrule
+00 & AND & \(A\land B\) & LED3:0\\
+01 & OR & \(A\lor B\) & LED3:0\\
+10 & XOR & \(A\oplus B\) & LED3:0\\
+11 & ADD & \(A+B\) & LED4:0\\\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[!t]
+\centering
+\begin{tikzpicture}[>=Stealth, every node/.style={font=\scriptsize}, block/.style={draw,rounded corners,minimum width=20mm,minimum height=9mm,align=center}, node distance=8mm]
+\node[block] (div) {Divisor\\MAX};
+\node[block,right=of div] (fsm) {FSM\\control};
+\node[block,right=of fsm] (dat) {Datapath\\A, B, op};
+\draw[->] (div) -- node[above]{en} (fsm);
+\draw[->] (fsm) -- node[above]{op} (dat);
+\node[below=6mm of dat] (led) {LED4:0, LED9:8};
+\draw[->] (dat) -- (led);
+\end{tikzpicture}
+\caption{Diagrama de bloques funcional para la integración de la Parte B. Se omitieron las conexiones comunes de reloj y reset para facilitar la lectura.}\label{fig:bloques}
+\end{figure}
+
+\subsection{Simulación y testbenches}
+Para la Parte A se planteó un escenario de prueba con \texttt{MAX=4}, que permitió observar los pulsos sin simular cien millones de ciclos entre habilitaciones. Se fijaron como criterios de verificación la duración de un ciclo de \texttt{en}, su periodicidad, el incremento unitario, el desborde y el reset. En el material de clase se recomendó medir períodos entre eventos con \texttt{now} y utilizar \texttt{assert}; al comparar valores después de un flanco, se propuso un retardo breve para permitir la actualización de los ciclos delta del simulador \cite{cursodiv}. Para la Parte B se establecieron dos recorridos completos de la secuencia, un reset desde un estado distinto de \texttt{S\_AND} y casos de prueba para cada operación, incluida una suma con acarreo. El material de FSM mostró la comparación de salidas esperadas mediante \texttt{assert}, práctica aplicable a la secuencia de \texttt{op} \cite{cursofsm}. \completar{Indicar cuáles verificaciones se implementaron efectivamente con assert y cuáles se inspeccionaron visualmente.}
+
+\subsection{Restricciones e implementación en la placa}
+La consigna estableció el reloj de 100 MHz en el pin H4 y requirió la restricción temporal \texttt{create\_clock}. Las entradas y salidas del shield utilizaron el estándar \texttt{LVCMOS33}. Además, la salida \texttt{AR\_3V3\_EN} quedó definida como activa en bajo, con asignación al pin L13 y valor lógico cero para habilitar la alimentación de los dip-switches \cite{consigna}. Las asignaciones físicas restantes se documentaron en el archivo XDC, de acuerdo con el manual del shield. \completar{Completar pines concretos del XDC empleado y describir en pasado únicamente síntesis, implementación, bitstream y programación realmente realizados.}
+

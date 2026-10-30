@@ -1,0 +1,44 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,babel}
+\hypersetup{hidelinks}
+\graphicspath{{figuras/}}
+\definecolor{pendiente}{RGB}{125,54,20}
+\newcommand{\completar}[1]{\textcolor{pendiente}{\textbf{[Completar: #1]}}}
+\newcommand{\figpendiente}[2]{%
+  \begin{figure}[!t]\centering
+    \fbox{\begin{minipage}[c][31mm][c]{0.87\columnwidth}\centering\small\completar{#1}\end{minipage}}
+    \caption{#2}\label{fig:#1}
+  \end{figure}}
+\lstdefinestyle{vhdl}{basicstyle=\ttfamily\footnotesize,breaklines=true,frame=single,columns=fullflexible,language=VHDL,showstringspaces=false}
+\begin{document}
+\title{Electrónica Digital 2: Laboratorio 3\\Lógica secuencial y máquinas de estados finitos}
+\author{\IEEEauthorblockN{[Nombre y apellido] \qquad [Nombre y apellido] \qquad [Nombre y apellido]}
+\IEEEauthorblockA{Ingeniería en Mecatrónica, Universidad Tecnológica (UTEC)\\Fray Bentos, Uruguay\\Correo: pendiente}}
+\maketitle
+\begin{abstract}
+\completar{Redactar al finalizar: objetivo del laboratorio; divisor de 100 MHz a un pulso por segundo; contador de diez bits; FSM de cuatro operaciones; método de validación; resultados efectivamente obtenidos y principal limitación. No atribuir éxito a pruebas pendientes.}
+\end{abstract}
+\begin{IEEEkeywords}
+FPGA, VHDL, lógica secuencial, divisor de frecuencia, contador, máquina de estados finitos, Moore, datapath, Vivado.
+\end{IEEEkeywords}
+
+\input{secciones/01_introduccion.tex}
+\input{secciones/02_marco_teorico.tex}
+\input{secciones/03_metodologia.tex}
+\input{secciones/04_resultados_discusion.tex}
+\input{secciones/05_preguntas.tex}
+\input{secciones/06_conclusiones.tex}
+\input{secciones/07_evidencias.tex}
+\end{document}

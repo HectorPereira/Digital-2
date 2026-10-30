@@ -1,0 +1,15 @@
+\section{Marco teórico}
+\subsection{Lógica combinacional y secuencial}
+En un circuito combinacional, las salidas dependen únicamente de las entradas actuales. En uno secuencial, interviene además el estado interno, que conserva información de los ciclos anteriores \cite{cursofsm}. En VHDL, un registro se describe mediante \texttt{rising\_edge(clk)}; el reset síncrono se evalúa dentro de ese flanco, a diferencia del reset asíncrono, que puede actuar sin esperar al reloj \cite{ug901}. 
+
+\subsection{División de frecuencia y habilitación}
+Un divisor por módulo se obtuvo mediante una cuenta interna y la detección del valor terminal (\emph{terminal count}) \cite{cursodiv}. Para la práctica se especificó un pulso \texttt{en} de un ciclo de duración cada \texttt{MAX} ciclos del reloj principal. El número de ciclos requerido se calculó como
+\begin{equation}
+\mathrm{MAX}=\frac{f_{\mathrm{clk}}}{f_{\mathrm{pulso}}}.
+\label{eq:max}
+\end{equation}
+De este modo, los módulos conservaron el dominio de reloj de 100 MHz y utilizaron \texttt{en} para determinar cuándo actualizar su estado. El uso de un único dominio de reloj evitó utilizar una salida lógica como reloj de otro bloque, práctica desaconsejada en FPGA por las dificultades de ruteo y análisis temporal \cite{cursodiv}. Este pulso de habilitación no fue una señal cuadrada de 1 Hz: su período fue de un segundo y su duración en alto fue de un único ciclo de 10 ns.
+
+\subsection{FSM de Moore y datapath}
+Una FSM está formada por un conjunto finito de estados, reglas de transición y salidas \cite{cursofsm}. En una máquina de Moore, las salidas dependen del estado registrado; en una de Mealy, pueden depender del estado y de las entradas actuales. La enseñanza del curso propuso un patrón de tres procesos: registro de estado síncrono, próximo estado combinacional y salida combinacional \cite{cursofsm}. En la Parte B se especificó la codificación Moore \texttt{op} correspondiente a cuatro estados; el \emph{datapath}, de naturaleza combinacional, recibió A, B y \texttt{op}. Por tanto, la salida \texttt{op} depende solo del estado, mientras que el resultado de cálculo también depende de A y B.
+
