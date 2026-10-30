@@ -14,21 +14,14 @@
 \usetikzlibrary{arrows.meta,positioning,babel}
 \hypersetup{hidelinks}
 \graphicspath{{figuras/}}
-\definecolor{pendiente}{RGB}{125,54,20}
-\newcommand{\completar}[1]{\textcolor{pendiente}{\textbf{[Completar: #1]}}}
-\newcommand{\figpendiente}[2]{%
-  \begin{figure}[!t]\centering
-    \fbox{\begin{minipage}[c][31mm][c]{0.87\columnwidth}\centering\small\completar{#1}\end{minipage}}
-    \caption{#2}\label{fig:#1}
-  \end{figure}}
 \lstdefinestyle{vhdl}{basicstyle=\ttfamily\footnotesize,breaklines=true,frame=single,columns=fullflexible,language=VHDL,showstringspaces=false}
 \begin{document}
 \title{Electrónica Digital 2: Laboratorio 3\\Lógica secuencial y máquinas de estados finitos}
-\author{\IEEEauthorblockN{[Nombre y apellido] \qquad [Nombre y apellido] \qquad [Nombre y apellido]}
-\IEEEauthorblockA{Ingeniería en Mecatrónica, Universidad Tecnológica (UTEC)\\Fray Bentos, Uruguay\\Correo: pendiente}}
+\author{\IEEEauthorblockN{Isaac Martirena \qquad Héctor Pereira}
+\IEEEauthorblockA{Equipo UTEC City\\Ingeniería en Mecatrónica, Universidad Tecnológica (UTEC)\\Fray Bentos, Uruguay\\isaac.martirena@estudiantes.utec.edu.uy\\hector.pereira@estudiantes.utec.edu.uy}}
 \maketitle
 \begin{abstract}
-\completar{Redactar al finalizar: objetivo del laboratorio; divisor de 100 MHz a un pulso por segundo; contador de diez bits; FSM de cuatro operaciones; método de validación; resultados efectivamente obtenidos y principal limitación. No atribuir éxito a pruebas pendientes.}
+Se diseñaron y validaron dos sistemas síncronos en VHDL sobre una FPGA Spartan-7. En la Parte A se generó un pulso por segundo a partir de 100 MHz y se habilitó un contador de diez bits. En la Parte B se reutilizó el divisor para secuenciar AND, OR, XOR y suma mediante una FSM de Moore y un datapath separado. Se ejecutaron testbenches autoverificables, se completaron síntesis e implementación y se programó la placa por JTAG. Se verificaron la cuenta, el reset, la secuencia y la suma con acarreo. Las restricciones internas de 100 MHz fueron satisfechas; la comprobación física fue visual y no constituyó una medición instrumental de precisión temporal.
 \end{abstract}
 \begin{IEEEkeywords}
 FPGA, VHDL, lógica secuencial, divisor de frecuencia, contador, máquina de estados finitos, Moore, datapath, Vivado.

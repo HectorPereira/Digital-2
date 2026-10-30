@@ -1,10 +1,10 @@
 \section{Resultados y discusión}
 \subsection{Parte A: simulación}
-Se recibieron y revisaron los módulos \texttt{divisor}, \texttt{contador} y \texttt{top\_A}, el archivo de restricciones y el testbench \texttt{tb\_parte\_A}. Los cuatro archivos VHDL se analizaron con Vivado 2025.1 y se ejecutó el testbench con XSim. La simulación utilizó un reloj de 10 ns, \texttt{MAX=4} y un contador de tres bits para observar el desborde en un intervalo breve.
+Fueron implementados y analizados los módulos \texttt{divisor}, \texttt{contador} y \texttt{top\_A}, el archivo de restricciones y el testbench \texttt{tb\_parte\_A}. Los cuatro archivos VHDL se analizaron con Vivado 2025.1 y se ejecutó el testbench con XSim. La simulación utilizó un reloj de 10 ns, \texttt{MAX=4} y un contador de tres bits para observar el desborde en un intervalo breve.
 
 Durante 41 ciclos se compararon mediante \texttt{assert} el pulso de habilitación y la cuenta con modelos de referencia. Se consumieron diez habilitaciones y se observó el desborde de siete a cero. Antes de activar el reset final se comprobó explícitamente que la cuenta era dos; permaneció en dos hasta el siguiente flanco ascendente y volvió a cero en dicho flanco. Todas las aserciones finalizaron correctamente a los 455,001 ns. El contador consume el enable registrado en el flanco anterior.
 
-La Fig.~\ref{fig:simA} muestra la ejecución corregida. La prueba ejercitó divisor y contador con N=3, sin acreditar todavía la implementación física del top de diez bits.
+La Fig.~\ref{fig:simA} muestra la ejecución corregida. La prueba ejercitó divisor y contador con N=3, mientras que el top de diez bits fue contrastado por separado en placa.
 \begin{figure*}[!t]
 \centering
 \includegraphics[width=\textwidth,trim=18bp 300bp 15bp 114bp,clip]{simulacion_parte_a_corregida.png}
@@ -13,10 +13,10 @@ La Fig.~\ref{fig:simA} muestra la ejecución corregida. La prueba ejercitó divi
 \end{figure*}
 
 \subsection{Parte A: funcionamiento físico}
-\completar{Registrar los valores observados durante al menos diez segundos, la conmutación de LED0, el incremento cada segundo y el comportamiento del reset. Si no se implementó, indicar expresamente la limitación.}
+El bitstream de la Parte A fue cargado por JTAG y fue confirmado el estado DONE. En la placa fue observado el avance binario de los diez LEDs a una velocidad visual compatible con un incremento por segundo. El LED1 físico, asociado al bit lógico LED[0], alternó su nivel con cada incremento. Al mantenerse activo el reset del DIP chico, posición 4, la cuenta fue puesta a cero; al desactivarlo se reanudó el avance. Fue conservada una grabación de esta prueba. La duración exacta del período no fue medida con instrumental externo y el desborde físico completo de 1024 estados no fue ensayado; el desborde fue verificado en simulación.
 
 \subsection{Parte B: simulación}
-Se implementó una FSM enumerada de tres procesos y un datapath combinacional, integrados con el divisor de la Parte A. El testbench del top utilizó MAX=4 y reloj de 10 ns, recorrió más de tres ciclos de estados y verificó la retención entre habilitaciones. Se ensayaron los 256 pares posibles de operandos para cada operación, incluida la suma con acarreo, y se comprobó que los operandos no alteraban la salida de Moore. El reset se aplicó desde OR, verificando su acción síncrona, el retorno a AND y el reinicio de la temporización. Todas las aserciones finalizaron correctamente a los 605,001 ns en XSim 2025.1. La asignación física de las entradas A y B se completó según el esquema; la validación en placa sigue pendiente.
+Se implementó una FSM enumerada de tres procesos y un datapath combinacional, integrados con el divisor de la Parte A. El testbench del top utilizó MAX=4 y reloj de 10 ns, recorrió más de tres ciclos de estados y verificó la retención entre habilitaciones. Se ensayaron los 256 pares posibles de operandos para cada operación, incluida la suma con acarreo, y se comprobó que los operandos no alteraban la salida de Moore. El reset se aplicó desde OR, verificando su acción síncrona, el retorno a AND y el reinicio de la temporización. Todas las aserciones finalizaron correctamente a los 605,001 ns en XSim 2025.1. La asignación física de las entradas A y B se completó según el esquema; las operaciones fueron contrastadas posteriormente en placa.
 La Fig.~\ref{fig:simB} muestra la secuencia de operación y el reset desde OR. Los cambios rápidos de operandos al comienzo corresponden al barrido exhaustivo del testbench; la comprobación de esos casos se realizó mediante aserciones y requiere una ampliación temporal para su inspección visual.
 \begin{figure*}[!t]\centering
 \includegraphics[width=\textwidth,trim=159bp 258bp 15bp 114bp,clip]{simulacion_parte_b.png}
@@ -33,28 +33,30 @@ Se ejecutó una prueba adicional con operandos constantes A=15 y B=3 durante dos
 \end{figure*}
 
 \subsection{Parte B: validación física}
-\completar{Describir valores A y B usados, secuencia visible en LED9:8, resultado en LED3:0, carry en LED4 y reset. Comparar lo esperado con lo observado, sin marcar como verificados los casos aún no ensayados.}
+Con A=5 y B=3 fueron observados los resultados 1, 7, 6 y 8 al recorrerse AND, OR, XOR y ADD, respectivamente. En los LEDs físicos se obtuvieron LED1; LED1, LED2 y LED3; LED2 y LED3; y LED4. El código de operación fue mostrado en LED10 y LED9 físicos. Con A=15 y B=3 fue verificada la suma 18 mediante LED5 físico (acarreo) y LED2 físico (valor dos en los cuatro bits inferiores). El reset fue comprobado desde un estado diferente de AND: se retornó a op=00 y al resultado AND de los operandos, sin borrar las entradas. Tras la primera prueba, la asignación de switches fue reorganizada para reunir A y B en el DIP grande y colocar sus MSB en las posiciones 8 y 4. La numeración final fue utilizada en las pruebas posteriores. Fueron conservadas dos tomas de funcionamiento de la Parte B.
 
 \begin{table}[!t]
 \centering\caption{Registro de pruebas de la FSM y del datapath}\label{tab:pruebas}
 \begin{tabular}{@{}ccccc@{}}\toprule
 \textbf{A} & \textbf{B} & \textbf{op} & \textbf{Esperado} & \textbf{Observado}\\\midrule
-0101 & 0011 & 00 & 00001 & --\\
-0101 & 0011 & 01 & 00111 & --\\
-0101 & 0011 & 10 & 00110 & --\\
-0101 & 0011 & 11 & 01000 & --\\
-1111 & 0011 & 11 & 10010 & --\\\bottomrule
+0101 & 0011 & 00 & 00001 & 00001\\
+0101 & 0011 & 01 & 00111 & 00111\\
+0101 & 0011 & 10 & 00110 & 00110\\
+0101 & 0011 & 11 & 01000 & 01000\\
+1111 & 0011 & 11 & 10010 & 10010\\\bottomrule
 \end{tabular}
 \end{table}
-La Tabla~\ref{tab:pruebas} presenta casos de referencia calculados, no mediciones. El campo observado quedó sin completar hasta su contrastación experimental. Los cinco bits de salida se representaron como \texttt{LED4:0}.
+La Tabla~\ref{tab:pruebas} compara los valores calculados con los patrones observados visualmente en placa para los casos ensayados. Los cinco bits de salida se representaron como \texttt{LED4:0}.
 
 \subsection{Discusión y limitaciones}
-\completar{Analizar diferencias entre simulación y placa, problemas concretos de restricciones, síntesis, lectura de switches o temporización; explicar sus causas y las soluciones efectivamente aplicadas. Valorar la legibilidad del video e indicar si las tomas permitieron verificar las entradas y salidas.}
+No fueron reportadas discrepancias funcionales en los casos físicos ensayados. En la simulación inicial de A se detectó que el reset final ocurría cuando la cuenta ya era cero, por lo que no demostraba su borrado. El testbench fue extendido y fue exigida una cuenta previa de dos: así se comprobó el retorno síncrono a cero. En B, el barrido exhaustivo de operandos resultó demasiado rápido para ser interpretado en una captura general; fue añadida una prueba con operandos constantes para exponer el acarreo. La dificultad de lectura física de entradas fue resuelta agrupando los operandos en el DIP grande y documentando explícitamente su orden. Estas correcciones mejoraron la cobertura de las pruebas y su interpretación sin modificar las operaciones solicitadas.
+
+La comprobación exhaustiva de operandos fue realizada en simulación; la placa fue probada con casos representativos. No fue caracterizada la metastabilidad o el rebote de los switches. Las tomas de placa fueron conservadas como registro visual; la evidencia completa de entrega también requirió las grabaciones de las simulaciones.
 
 
 \subsection{Síntesis e implementación}
 Ambos diseños completaron síntesis, colocación y ruteo con reloj de 100 MHz. En la Parte A se utilizaron 15 LUT y 38 registros, con margen mínimo de setup de 5,897 ns y de hold de 0,251 ns. En la Parte B se utilizaron 16 LUT y 32 registros, con márgenes de 5,913 ns y 0,251 ns, respectivamente. No se registraron violaciones de setup ni hold en las rutas restringidas.
 
-Los informes temporales advierten que las entradas de switches y las salidas hacia LEDs no tienen retardos externos especificados. Por tanto, estos resultados acreditan las restricciones internas del reloj, no una caracterización temporal completa de las interfaces externas ni el funcionamiento físico del shield. Las pruebas en placa siguen pendientes.
+Los informes temporales advierten que las entradas de switches y las salidas hacia LEDs no tienen retardos externos especificados. Por tanto, estos resultados acreditan las restricciones internas del reloj, no una caracterización temporal completa de las interfaces externas ni el funcionamiento físico del shield. La comprobación en placa fue visual, con operandos estáticos.
 
-El DRC final no registró violaciones tras incorporar las propiedades de configuración indicadas en el XDC maestro. Se generaron los bitstreams de ambas partes; su programación y prueba en placa permanecen pendientes.
+El DRC final no registró violaciones tras incorporar las propiedades de configuración indicadas en el XDC maestro. Se generaron los bitstreams de ambas partes; ambos fueron programados por JTAG y ensayados visualmente en la placa.

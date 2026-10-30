@@ -51,3 +51,6 @@ A[0..3] en D6..D9 (grande 8,7,6,5); B[0..3] en D10..D13 (grande 4,3,2,1). Reset 
 
 ## Orden final de bits confirmado
 A0..A3 = DIP grande 5,6,7,8; B0..B3 = DIP grande 1,2,3,4. MSB de A en 8 y de B en 4. Reset chico 4. Bitstream regenerado, WNS 5.913 ns y WHS 0.251 ns, DRC sin violaciones. Sustituye el orden anterior.
+
+## Informe completado con resultados físicos confirmados
+Autores confirmados: Isaac Martirena y Héctor Pereira. Reset de ambas partes y suma con acarreo confirmados por el usuario. Completados resumen, métodos, tabla observada, discusión, preguntas y conclusiones. Sin marcadores Completar ni referencias internas. Restan edición de videos finales con simulación, enlaces de entrega y presentación presencial si no fue realizada.
