@@ -11,14 +11,14 @@ if {$letra eq "A"} {
 }
 read_xdc [list [file join $base constraints top_$letra.xdc]]
 synth_design -top top_$letra -part xc7s15ftgb196-1
-report_utilization -file [file join $out utilizacion_sintesis.rpt]
+report_utilization -force -file [file join $out utilizacion_sintesis.rpt]
 write_checkpoint -force [file join $out sintesis.dcp]
 opt_design
 place_design
 route_design
-report_io -file [file join $out pines.rpt]
-report_drc -file [file join $out drc.rpt]
-report_timing_summary -report_unconstrained -file [file join $out timing.rpt]
-report_utilization -file [file join $out utilizacion_final.rpt]
+report_io -force -file [file join $out pines.rpt]
+report_drc -force -file [file join $out drc.rpt]
+report_timing_summary -report_unconstrained -force -file [file join $out timing.rpt]
+report_utilization -force -file [file join $out utilizacion_final.rpt]
 write_checkpoint -force [file join $out implementacion.dcp]
 

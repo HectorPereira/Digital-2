@@ -1,0 +1,5 @@
+Programacion JTAG Parte A: 2026-10-30
+Dispositivo detectado: XC7S15
+Bitstream: evidencias/implementacion/parte_a/top_A.bit
+Vivado: End of startup status HIGH; INIT_COMPLETE=1; DONE=1
+Programacion completada sin errores. Pendiente observacion del contador y reset por el usuario.

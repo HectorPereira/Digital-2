@@ -16,7 +16,7 @@
 LED[0] cambia de nivel cada segundo: el ciclo completo encendido/apagado dura dos segundos (0,5 Hz). La cuenta sí avanza a 1 incremento/s. No esperar el desborde físico completo: ocurre cada 1024 incrementos.
 
 ## Parte B
-1. Programar top_B.bit. Reset D2; A[0..3] en D3..D6 y B[0..3] en D7..D10. El primer switch de cada grupo es el bit menos significativo.
+1. Programar top_B.bit. Reset D2 = DIP chico 4. A[0..3] en D6..D9 = DIP grande 8,7,6,5. B[0..3] en D10..D13 = DIP grande 4,3,2,1. Para A=5 activar grande 8 y 6; para A=15 activar grande 8,7,6,5. Para B=3 activar grande 4 y 3.
 2. Poner A=5 (0101), B=3 (0011). Activar reset y comprobar AND. Soltar y grabar al menos dos vueltas completas (8 segundos; preferible 10).
 3. Leer op en LED[9:8]: 00 AND, 01 OR, 10 XOR, 11 ADD. Para A=5 y B=3 los resultados son 1, 7, 6 y 8; carry siempre cero.
 4. Poner A=15 (1111), B=3 (0011). Grabar otras dos vueltas completas: resultados 3, 15, 12 y 18. En ADD, LED[4] (LED5 físico) debe encender y LED[3:0] mostrar 0010; op=11.

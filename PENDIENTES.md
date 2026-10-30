@@ -45,3 +45,6 @@ Esquema y XDC maestro cotejados, XDC B completo y ambos diseños sintetizados y 
 
 ## Captura de acarreo y PDF revisado
 Prueba dedicada tb_carry con A=15, B=3: dos vueltas completas, ADD=18, carry=1 y resultado inferior=0010; aserciones correctas a 415001 ps. Captura incorporada, PDF de cinco páginas compilado y revisado visualmente. Sin menciones ni enlaces al espacio interno de colaboración. Guion de placa/video listo en GUION_LABORATORIO.md. Pendientes: autores, pruebas físicas, videos, resultados observados y conclusiones de esas pruebas.
+
+## Remapeo físico de Parte B
+A[0..3] en D6..D9 (grande 8,7,6,5); B[0..3] en D10..D13 (grande 4,3,2,1). Reset permanece D2, chico 4. Bitstream regenerado, DRC limpio y WNS 6.270 ns / WHS 0.275 ns. Repetir las pruebas físicas de B con este mapeo.
