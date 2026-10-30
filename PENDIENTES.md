@@ -24,3 +24,6 @@ El LaTeX y los enlaces externos del PDF se revisaron: solo apuntan a documentaci
 - Dibujar LED9:8 desde op de la FSM; agregar reset y retención sin enable al diagrama de estados.
 - Mantener aclaración: incremento a 1 Hz implica señal de LED0 a 0,5 Hz.
 - Confirmar el límite de páginas, mencionado sin cifra en la rúbrica.
+
+## Privacidad del entorno de colaboración
+No mencionar ni enlazar el GitHub interno en los informes de entrega. Se quitó la sugerencia genérica de enlazar un repositorio en secciones/07_evidencias.tex. El PDF y LaTeX archivados en originales/ conservan esa sugerencia genérica; no contienen la URL de nuestro GitHub. No usar esos originales como entrega final.
