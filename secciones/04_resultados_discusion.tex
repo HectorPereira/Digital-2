@@ -2,10 +2,16 @@
 \subsection{Parte A: simulación}
 Se recibieron y revisaron los módulos \texttt{divisor}, \texttt{contador} y \texttt{top\_A}, el archivo de restricciones y el testbench \texttt{tb\_parte\_A}. Los cuatro archivos VHDL se analizaron con Vivado 2025.1 y se ejecutó el testbench con XSim. La simulación utilizó un reloj de 10 ns, \texttt{MAX=4} y un contador de tres bits para observar el desborde en un intervalo breve.
 
-Durante 36 ciclos se compararon mediante \texttt{assert} el valor de \texttt{en} con un modelo de periodicidad y el valor del contador con una cuenta de referencia. Se verificaron el pulso de un ciclo cada cuatro ciclos, la retención entre habilitaciones, el incremento, el desborde de siete a cero y el reset inicial y durante la cuenta. La ejecución finalizó a los 385,001 ns con el mensaje de comprobaciones correctas, sin errores de aserción. En ese intervalo se consumieron ocho habilitaciones; el noveno pulso se generó al final del bucle y fue seguido por reset. El contador consume el enable registrado en el flanco anterior, por lo que su actualización ocurre un ciclo después de generarse el pulso.
+Durante 36 ciclos se compararon mediante \texttt{assert} el valor de \texttt{en} con un modelo de periodicidad y el valor del contador con una cuenta de referencia. Se verificaron el pulso de un ciclo cada cuatro ciclos, la retención entre habilitaciones, el incremento, el desborde de siete a cero y el reset inicial y final. La ejecución finalizó a los 385,001 ns con el mensaje de comprobaciones correctas, sin errores de aserción. En ese intervalo se consumieron ocho habilitaciones; el noveno pulso se generó al final del bucle y fue seguido por reset. El contador consume el enable registrado en el flanco anterior, por lo que su actualización ocurre un ciclo después de generarse el pulso.
 
 Esta prueba ejercitó divisor y contador; el top de diez bits fue analizado, pero no fue la unidad instanciada por el testbench. La simulación no acredita funcionamiento físico ni valida el mapeo de pines del shield.
-\completar{Incorporar captura legible de las formas de onda de esta ejecución.}
+La Fig.~\ref{fig:simA} muestra la secuencia de cuenta y el desborde. El reset final se aplicó cuando la cuenta ya había retornado a cero, por lo que esta ejecución no demuestra el borrado de un valor no nulo; esa comprobación queda pendiente.
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth,trim=0 300 0 0,clip]{simulacion_parte_a.png}
+\caption{Simulación de la Parte A con reloj de 10 ns, MAX=4 y N=3. Se observan los pulsos de habilitación, el incremento del contador y el desborde de siete a cero. El reset final ocurre con la cuenta en cero.}
+\label{fig:simA}
+\end{figure*}
 
 \subsection{Parte A: funcionamiento físico}
 \completar{Registrar los valores observados durante al menos diez segundos, la conmutación de LED0, el incremento cada segundo y el comportamiento del reset. Si no se implementó, indicar expresamente la limitación.}

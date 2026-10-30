@@ -33,3 +33,6 @@ Proyecto recibido y revisado: faltan los tres VHDL, el XDC y el testbench. Ver p
 
 ## Actualización: segundo paquete de Parte A
 Ya se recibieron VHDL, XDC y testbench. Sustituye el bloqueo anterior por fuentes faltantes. Simulación XSim aprobada; ver parte_a/REVISION_RECIBIDO.md. Pendientes: captura, cotejo de pines, implementación/placa y Parte B.
+
+## Captura de Parte A incorporada
+Captura recibida incorporada como figuras/simulacion_parte_a.png. Corregida la descripción de resultados: el reset final ocurre con q=0. Agregar un reset con q distinto de cero y una aserción previa que asegure esa condición. No está validado todavía el borrado de una cuenta no nula.
