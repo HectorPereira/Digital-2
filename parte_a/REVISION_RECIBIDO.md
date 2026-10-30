@@ -1,18 +1,11 @@
-# Revisión de Parte A recibida
+# Parte A — actualización de revisión
 
-El ZIP contiene únicamente el proyecto .xpr y metadatos de caché/hardware. Las dos copias extraídas del .xpr son idénticas. No se encontraron los fuentes referenciados en Descargas.
+El segundo paquete archivos.zip incluye divisor.vhd, contador.vhd, top_A.vhd, tb_parte_A.vhd y top_A.xdc. Los originales se preservan en originales/parte_a_recibida/.
 
-Configuración comprobada: Vivado 2025.1, dispositivo xc7s15ftgb196-1 y top_A. El conjunto sim_1 selecciona top_A, sin fuentes de testbench declaradas.
+Los cuatro VHDL se analizaron con xvhdl --2008 y el testbench se elaboró y ejecutó con XSim 2025.1. Todas las aserciones pasaron; fin a 385001 ps. Evidencia: evidencias/simulacion/parte_a_xsim.log.
 
-Archivos ausentes:
-- divisor.vhd
-- contador.vhd
-- top_A.vhd
-- top_A.xdc
-- testbench de la Parte A
+MAX=4, N=3, reloj 10 ns: periodicidad y ancho del enable, cuenta de referencia, retención, desborde y reset inicial/durante cuenta. El bucle genera nueve pulsos pero consume ocho: el comentario del testbench sobre nueve incrementos no es exacto. Sí alcanza a comprobar el desborde. No se modificaron los fuentes recibidos.
 
-Las referencias $PPRDIR/../ apuntan fuera del directorio del proyecto. No se ejecutaron simulación, síntesis ni implementación: no hay fuentes para hacerlo. El .xpr no demuestra que esas etapas se hayan completado.
+El top fija MAX=100000000 y N=10 y habilita AR_3V3_EN a cero. XDC incluye reloj H4, periodo 10 ns, LVCMOS33, alimentación L13 y reset A10; el propio XDC pide confirmar el switch. Pendiente cotejar todos los pines con manual del shield, capturar ondas, validar top de diez bits, síntesis/implementación y placa. El proyecto .xpr anterior aún apunta a archivos externos: no es un proyecto portátil reparado.
 
-Pedir al colega: exportar desde Vivado mediante Archive Project incluyendo los archivos fuente (también los externos), o enviar los cuatro archivos anteriores más el testbench, capturas y resultados disponibles. Comprobar que el ZIP incluye realmente .vhd y .xdc antes de compartirlo.
-
-Se incorporó un apartado de alcance de la revisión en secciones/04_resultados_discusion.tex. No se inventaron códigos ni resultados para completar la entrega. El PDF del informe no fue recompilado.
+El informe LaTeX fue actualizado con resultados reales; no se recompiló el PDF.

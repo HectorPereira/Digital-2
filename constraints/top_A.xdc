@@ -1,0 +1,30 @@
+# Laboratorio 3 - Parte A - Spartan Edge Accelerator + shield UTEC
+# Correspondencia: LED(0) -> LED1 fisico del shield -> FPGAIO9.
+# Confirmar que el switch elegido como rst corresponde al pin D2 del shield.
+
+# Reloj de 100 MHz
+set_property PACKAGE_PIN H4 [get_ports {clk}]
+set_property IOSTANDARD LVCMOS33 [get_ports {clk}]
+create_clock -name sys_clk -period 10.000 [get_ports {clk}]
+
+# Reset activo alto: D2 del conector Arduino
+set_property PACKAGE_PIN A10 [get_ports {rst}]
+set_property IOSTANDARD LVCMOS33 [get_ports {rst}]
+
+# Contador de 10 bits: LED(0) = LSB
+# FPGAIO9 a FPGAIO0, de LED1 a LED10 fisicos del shield
+set_property PACKAGE_PIN E11 [get_ports {LED[0]}]
+set_property PACKAGE_PIN P5  [get_ports {LED[1]}]
+set_property PACKAGE_PIN D3  [get_ports {LED[2]}]
+set_property PACKAGE_PIN B14 [get_ports {LED[3]}]
+set_property PACKAGE_PIN M10 [get_ports {LED[4]}]
+set_property PACKAGE_PIN N10 [get_ports {LED[5]}]
+set_property PACKAGE_PIN B13 [get_ports {LED[6]}]
+set_property PACKAGE_PIN C4  [get_ports {LED[7]}]
+set_property PACKAGE_PIN M14 [get_ports {LED[8]}]
+set_property PACKAGE_PIN N14 [get_ports {LED[9]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {LED[*]}]
+
+# Habilita alimentacion 3,3 V del shield, activo bajo
+set_property PACKAGE_PIN L13 [get_ports {AR_3V3_EN}]
+set_property IOSTANDARD LVCMOS33 [get_ports {AR_3V3_EN}]
