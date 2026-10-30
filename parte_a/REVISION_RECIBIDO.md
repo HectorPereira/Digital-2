@@ -9,3 +9,6 @@ MAX=4, N=3, reloj 10 ns: periodicidad y ancho del enable, cuenta de referencia, 
 El top fija MAX=100000000 y N=10 y habilita AR_3V3_EN a cero. XDC incluye reloj H4, periodo 10 ns, LVCMOS33, alimentación L13 y reset A10; el propio XDC pide confirmar el switch. Pendiente cotejar todos los pines con manual del shield, capturar ondas, validar top de diez bits, síntesis/implementación y placa. El proyecto .xpr anterior aún apunta a archivos externos: no es un proyecto portátil reparado.
 
 El informe LaTeX fue actualizado con resultados reales; no se recompiló el PDF.
+
+## Corrección posterior del testbench
+Se amplió la prueba a 41 ciclos: diez incrementos y desborde. Reset aplicado desde q=2 con comprobación de sincronismo. Pasó en XSim, fin a 455001 ps. Captura real figuras/simulacion_parte_a_corregida.png incorporada al LaTeX. Sustituye las limitaciones de reset de la primera revisión.

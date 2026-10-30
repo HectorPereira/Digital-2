@@ -36,3 +36,6 @@ Ya se recibieron VHDL, XDC y testbench. Sustituye el bloqueo anterior por fuente
 
 ## Captura de Parte A incorporada
 Captura recibida incorporada como figuras/simulacion_parte_a.png. Corregida la descripción de resultados: el reset final ocurre con q=0. Agregar un reset con q distinto de cero y una aserción previa que asegure esa condición. No está validado todavía el borrado de una cuenta no nula.
+
+## Simulación corregida y comienzo de Parte B
+Reset de Parte A corregido: q=2 antes del reset, retención hasta flanco y borrado comprobados. Captura nueva incorporada. Prueba/video de placa diferidos hasta laboratorio. Parte B implementada desde consigna y simulación integrada aprobada; faltan captura, XDC de operandos y placa. Los pendientes históricos anteriores quedan sustituidos por este estado.

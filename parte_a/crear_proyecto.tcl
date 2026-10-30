@@ -8,7 +8,7 @@ add_files -fileset sim_1 [list [file join $base parte_a tb tb_parte_A.vhd]]
 set_property file_type {VHDL 2008} [get_files *.vhd]
 set_property top top_A [get_filesets sources_1]
 set_property top tb_parte_A [get_filesets sim_1]
-set_property xsim.simulate.runtime {400ns} [get_filesets sim_1]
+set_property xsim.simulate.runtime {500ns} [get_filesets sim_1]
 update_compile_order -fileset sources_1
 update_compile_order -fileset sim_1
 close_project

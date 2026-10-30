@@ -48,8 +48,8 @@ begin
             report "Fallo de reset inicial" severity error;
         rst <= '0';
 
-        -- Verifica 36 ciclos, suficientes para 9 incrementos y desborde.
-        for i in 1 to 36 loop
+        -- Verifica 41 ciclos: diez incrementos, incluido el desborde.
+        for i in 1 to 41 loop
             wait until rising_edge(clk);
             -- El contador consume en_previo, no el nuevo en de este flanco.
             if en_previo = '1' then
@@ -74,12 +74,19 @@ begin
 
         -- Verifica reset cuando el contador ya tiene un valor no nulo.
         wait until falling_edge(clk);
+        assert to_integer(unsigned(q)) = 2
+            report "La prueba de reset requiere q=2 antes de activarlo" severity failure;
         rst <= '1';
+        wait for 1 ps;
+        assert to_integer(unsigned(q)) = 2
+            report "El reset debe ser sincrono" severity failure;
         wait until rising_edge(clk);
         wait for 1 ps;
         assert en = '0' and unsigned(q) = 0
             report "Fallo de reset durante la cuenta" severity error;
 
+        -- Mantener el reset para que su efecto sea visible en la captura.
+        wait for 2 * T_CLK;
         report "Parte A: todas las comprobaciones finalizaron correctamente"
             severity note;
         fin <= true;

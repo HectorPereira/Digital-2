@@ -3,10 +3,10 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Fri Oct 30 17:04:15 2026
-# Process ID         : 15828
+# Start of session at: Fri Oct 30 17:29:46 2026
+# Process ID         : 20100
 # Current directory  : C:/Users/hecto/OneDrive/Documents/ChatGPT/UTEC/Digital 2/Laboratorio 3/build/simulacion_a
-# Command line       : xsim.exe -mode tcl -source {xsim.dir/parte_a_verificada/xsim_script.tcl}
+# Command line       : xsim.exe -mode tcl -source {xsim.dir/parte_a_corregida/xsim_script.tcl}
 # Log file           : C:/Users/hecto/OneDrive/Documents/ChatGPT/UTEC/Digital 2/Laboratorio 3/build/simulacion_a/xsim.log
 # Journal file       : C:/Users/hecto/OneDrive/Documents/ChatGPT/UTEC/Digital 2/Laboratorio 3/build/simulacion_a\xsim.jou
 # Running On         : HPVictus
@@ -19,13 +19,20 @@
 # Host memory        : 16330 MB
 # Swap memory        : 15569 MB
 # Total Virtual      : 31899 MB
-# Available Virtual  : 14097 MB
+# Available Virtual  : 9088 MB
 #-----------------------------------------------------------
-source xsim.dir/parte_a_verificada/xsim_script.tcl
-# xsim {parte_a_verificada} -autoloadwcfg -runall
+source xsim.dir/parte_a_corregida/xsim_script.tcl
+# xsim {parte_a_corregida} -wdb {parte_a_final.wdb} -autoloadwcfg -tclbatch {../../parte_a/capturar_ondas.tcl}
 Time resolution is 1 ps
-run -all
+source ../../parte_a/capturar_ondas.tcl
+## log_wave -r /*
+WARNING: [Simtcl 6-197] One or more HDL objects could not be logged because of object type or size limitations.  To see details please rerun the command with -verbose (-v).
+## add_wave /tb_parte_A/clk
+## add_wave /tb_parte_A/rst
+## add_wave /tb_parte_A/en
+## add_wave -radix unsigned /tb_parte_A/q
+## run all
 Note: Parte A: todas las comprobaciones finalizaron correctamente
-Time: 385001 ps  Iteration: 0  Process: /tb_parte_A/estimulos  File: C:/Users/hecto/OneDrive/Documents/ChatGPT/UTEC/Digital 2/Laboratorio 3/parte_a/tb/tb_parte_A.vhd
-exit
-INFO: [Common 17-206] Exiting xsim at Fri Oct 30 17:04:18 2026...
+Time: 455001 ps  Iteration: 0  Process: /tb_parte_A/estimulos  File: C:/Users/hecto/OneDrive/Documents/ChatGPT/UTEC/Digital 2/Laboratorio 3/parte_a/tb/tb_parte_A.vhd
+## save_wave_config parte_a_corregida.wcfg
+xsim% INFO: [Common 17-206] Exiting xsim at Fri Oct 30 17:29:48 2026...

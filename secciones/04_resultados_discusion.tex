@@ -2,14 +2,13 @@
 \subsection{Parte A: simulación}
 Se recibieron y revisaron los módulos \texttt{divisor}, \texttt{contador} y \texttt{top\_A}, el archivo de restricciones y el testbench \texttt{tb\_parte\_A}. Los cuatro archivos VHDL se analizaron con Vivado 2025.1 y se ejecutó el testbench con XSim. La simulación utilizó un reloj de 10 ns, \texttt{MAX=4} y un contador de tres bits para observar el desborde en un intervalo breve.
 
-Durante 36 ciclos se compararon mediante \texttt{assert} el valor de \texttt{en} con un modelo de periodicidad y el valor del contador con una cuenta de referencia. Se verificaron el pulso de un ciclo cada cuatro ciclos, la retención entre habilitaciones, el incremento, el desborde de siete a cero y el reset inicial y final. La ejecución finalizó a los 385,001 ns con el mensaje de comprobaciones correctas, sin errores de aserción. En ese intervalo se consumieron ocho habilitaciones; el noveno pulso se generó al final del bucle y fue seguido por reset. El contador consume el enable registrado en el flanco anterior, por lo que su actualización ocurre un ciclo después de generarse el pulso.
+Durante 41 ciclos se compararon mediante \texttt{assert} el pulso de habilitación y la cuenta con modelos de referencia. Se consumieron diez habilitaciones y se observó el desborde de siete a cero. Antes de activar el reset final se comprobó explícitamente que la cuenta era dos; permaneció en dos hasta el siguiente flanco ascendente y volvió a cero en dicho flanco. Todas las aserciones finalizaron correctamente a los 455,001 ns. El contador consume el enable registrado en el flanco anterior.
 
-Esta prueba ejercitó divisor y contador; el top de diez bits fue analizado, pero no fue la unidad instanciada por el testbench. La simulación no acredita funcionamiento físico ni valida el mapeo de pines del shield.
-La Fig.~\ref{fig:simA} muestra la secuencia de cuenta y el desborde. El reset final se aplicó cuando la cuenta ya había retornado a cero, por lo que esta ejecución no demuestra el borrado de un valor no nulo; esa comprobación queda pendiente.
+La Fig.~\ref{fig:simA} muestra la ejecución corregida. La prueba ejercitó divisor y contador con N=3, sin acreditar todavía la implementación física del top de diez bits.
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=\textwidth,trim=0 300 0 0,clip]{simulacion_parte_a.png}
-\caption{Simulación de la Parte A con reloj de 10 ns, MAX=4 y N=3. Se observan los pulsos de habilitación, el incremento del contador y el desborde de siete a cero. El reset final ocurre con la cuenta en cero.}
+\includegraphics[width=\textwidth,trim=25 490 25 110,clip]{simulacion_parte_a_corregida.png}
+\caption{Simulación corregida de la Parte A: reloj de 10 ns, MAX=4 y N=3. Se observa el desborde de siete a cero y el reset síncrono final que borra la cuenta desde dos.}
 \label{fig:simA}
 \end{figure*}
 
@@ -17,7 +16,8 @@ La Fig.~\ref{fig:simA} muestra la secuencia de cuenta y el desborde. El reset fi
 \completar{Registrar los valores observados durante al menos diez segundos, la conmutación de LED0, el incremento cada segundo y el comportamiento del reset. Si no se implementó, indicar expresamente la limitación.}
 
 \subsection{Parte B: simulación}
-\completar{Insertar captura de al menos dos ciclos de la FSM; identificar clk, rst, en, op, A, B, resultado y carry. Analizar reset y sumas con acarreo.}
+Se implementó una FSM enumerada de tres procesos y un datapath combinacional, integrados con el divisor de la Parte A. El testbench del top utilizó MAX=4 y reloj de 10 ns, recorrió más de tres ciclos de estados y verificó la retención entre habilitaciones. Se ensayaron los 256 pares posibles de operandos para cada operación, incluida la suma con acarreo, y se comprobó que los operandos no alteraban la salida de Moore. El reset se aplicó desde OR, verificando su acción síncrona, el retorno a AND y el reinicio de la temporización. Todas las aserciones finalizaron correctamente a los 605,001 ns en XSim 2025.1. La asignación física de las entradas A y B y la validación en placa siguen pendientes.
+\completar{Incorporar capturas legibles de las ondas de la Parte B.}
 \begin{figure}[!t]\centering
 \fbox{\begin{minipage}[c][25mm][c]{0.85\columnwidth}\centering\small Captura de la simulación de la Parte B\end{minipage}}
 \caption{Transiciones de la FSM y salidas del datapath. Imagen pendiente de incorporación.}\label{fig:simB}
