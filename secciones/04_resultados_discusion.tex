@@ -17,11 +17,12 @@ La Fig.~\ref{fig:simA} muestra la ejecución corregida. La prueba ejercitó divi
 
 \subsection{Parte B: simulación}
 Se implementó una FSM enumerada de tres procesos y un datapath combinacional, integrados con el divisor de la Parte A. El testbench del top utilizó MAX=4 y reloj de 10 ns, recorrió más de tres ciclos de estados y verificó la retención entre habilitaciones. Se ensayaron los 256 pares posibles de operandos para cada operación, incluida la suma con acarreo, y se comprobó que los operandos no alteraban la salida de Moore. El reset se aplicó desde OR, verificando su acción síncrona, el retorno a AND y el reinicio de la temporización. Todas las aserciones finalizaron correctamente a los 605,001 ns en XSim 2025.1. La asignación física de las entradas A y B y la validación en placa siguen pendientes.
-\completar{Incorporar capturas legibles de las ondas de la Parte B.}
-\begin{figure}[!t]\centering
-\fbox{\begin{minipage}[c][25mm][c]{0.85\columnwidth}\centering\small Captura de la simulación de la Parte B\end{minipage}}
-\caption{Transiciones de la FSM y salidas del datapath. Imagen pendiente de incorporación.}\label{fig:simB}
-\end{figure}
+La Fig.~\ref{fig:simB} muestra la secuencia de operación y el reset desde OR. Los cambios rápidos de operandos al comienzo corresponden al barrido exhaustivo del testbench; la comprobación de esos casos se realizó mediante aserciones y requiere una ampliación temporal para su inspección visual.
+\begin{figure*}[!t]\centering
+\includegraphics[width=\textwidth,trim=260 430 25 110,clip]{simulacion_parte_b.png}
+\caption{Simulación integrada de la Parte B con MAX=4: reloj, reset, operandos, habilitación, código de operación y resultado de cinco bits. op=0,1,2,3 corresponde a AND, OR, XOR y ADD.}
+\label{fig:simB}
+\end{figure*}
 
 \subsection{Parte B: validación física}
 \completar{Describir valores A y B usados, secuencia visible en LED9:8, resultado en LED3:0, carry en LED4 y reset. Comparar lo esperado con lo observado, sin marcar como verificados los casos aún no ensayados.}
