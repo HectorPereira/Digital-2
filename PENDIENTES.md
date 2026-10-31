@@ -54,3 +54,6 @@ A0..A3 = DIP grande 5,6,7,8; B0..B3 = DIP grande 1,2,3,4. MSB de A en 8 y de B e
 
 ## Informe completado con resultados físicos confirmados
 Autores confirmados: Isaac Martirena y Héctor Pereira. Reset de ambas partes y suma con acarreo confirmados por el usuario. Completados resumen, métodos, tabla observada, discusión, preguntas y conclusiones. Sin marcadores Completar ni referencias internas. Restan edición de videos finales con simulación, enlaces de entrega y presentación presencial si no fue realizada.
+
+## Videos de placa en Drive
+Los tres videos se subieron con nombres neutros a la carpeta cuyo enlace está en evidencias/videos/enlaces_drive.json. Los enlaces fueron incorporados al PDF y se verificó que no contiene rutas locales ni menciones al entorno de colaboración. Los permisos de acceso deben comprobarse antes de entregar; las grabaciones de simulación y la edición de un video final por parte siguen pendientes.
