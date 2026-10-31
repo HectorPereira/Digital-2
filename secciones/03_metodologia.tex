@@ -12,6 +12,12 @@ Para obtener 1 kHz, el valor correspondiente fue \(\mathrm{MAX}_{1\,\mathrm{kHz}
 \subsection{Parte A: contador e integración}
 Se definió un contador ascendente con genérico \texttt{N=10}, reset síncrono y habilitación \texttt{en}. Su salida \texttt{q(9 downto 0)} se asignó a los diez LEDs, con \texttt{LED0} como bit menos significativo. En el módulo superior, la salida \texttt{en} del divisor se conectó a la entrada homónima del contador. Así, el registro solamente incrementaba cuando recibía un pulso de habilitación. El rango de diez bits fue de 0 a 1023, seguido de desborde a cero.
 
+La Fig.~\ref{fig:bloquesA} muestra las conexiones del top de la Parte A.
+\begin{figure*}[!t]\centering
+\includegraphics[width=\textwidth]{parte_a_integracion.png}
+\caption{Integración de la Parte A: divisor y contador bajo un único reloj, reset común y salida de diez bits hacia los LEDs.}\label{fig:bloquesA}
+\end{figure*}
+
 \subsection{Comportamiento temporal esperado}
 El pulso \texttt{en} fue especificado como una habilitación de un único ciclo de reloj cada \texttt{MAX} ciclos. Con \texttt{MAX=4}, la separación entre dos activaciones consecutivas fue de cuatro períodos de reloj. Con \texttt{MAX=100\,000\,000} y reloj de 100 MHz, el intervalo fue de un segundo. En un contador binario, cada bit dividió por dos la frecuencia de la señal cuadrada representada por el bit inmediato inferior \cite{cursodiv}. El avance de la cuenta permaneció sujeto a \texttt{en}, no a un flanco de una señal generada por lógica combinacional.
 
@@ -52,21 +58,11 @@ El datapath recibió \texttt{A(3:0)}, \texttt{B(3:0)} y \texttt{op(1:0)}. Se def
 \end{tabular}
 \end{table}
 
-\begin{figure}[!t]
+\begin{figure*}[!t]
 \centering
-\begin{tikzpicture}[>=Stealth, every node/.style={font=\scriptsize}, block/.style={draw,rounded corners,minimum width=20mm,minimum height=9mm,align=center}, node distance=8mm]
-\node[block] (div) {Divisor\\MAX};
-\node[block,right=of div] (fsm) {FSM\\control};
-\node[block,right=of fsm] (dat) {Datapath\\A, B, op};
-\draw[->] (div) -- node[above]{en} (fsm);
-\draw[->] (fsm) -- node[above]{op} (dat);
-\node[below=6mm of dat] (led) {LED4:0};
-\node[below=6mm of fsm] (opled) {LED9:8};
-\draw[->] (fsm) -- (opled);
-\draw[->] (dat) -- (led);
-\end{tikzpicture}
-\caption{Diagrama de bloques funcional para la integración de la Parte B. Se omitieron las conexiones comunes de reloj y reset para facilitar la lectura.}\label{fig:bloques}
-\end{figure}
+\includegraphics[width=\textwidth]{parte_b_integracion.png}
+\caption{Integración de la Parte B: entradas A y B, divisor, FSM, datapath y salidas. El reloj y el reset fueron comunes al divisor y a la FSM; las salidas LED[7:5] fueron fijadas a cero.}\label{fig:bloques}
+\end{figure*}
 
 \subsection{Simulación y testbenches}
 Para la Parte A se planteó un escenario de prueba con \texttt{MAX=4}, que permitió observar los pulsos sin simular cien millones de ciclos entre habilitaciones. Se fijaron como criterios de verificación la duración de un ciclo de \texttt{en}, su periodicidad, el incremento unitario, el desborde y el reset. En el material de clase se recomendó medir períodos entre eventos con \texttt{now} y utilizar \texttt{assert}; al comparar valores después de un flanco, se propuso un retardo breve para permitir la actualización de los ciclos delta del simulador \cite{cursodiv}. Para la Parte B se establecieron dos recorridos completos de la secuencia, un reset desde un estado distinto de \texttt{S\_AND} y casos de prueba para cada operación, incluida una suma con acarreo. El material de FSM mostró la comparación de salidas esperadas mediante \texttt{assert}, práctica aplicable a la secuencia de \texttt{op} \cite{cursofsm}. La periodicidad de en, la cuenta, el desborde y el reset fueron comprobados mediante assert en la Parte A; la secuencia, la retención, el reset y todos los pares de operandos por operación fueron comprobados mediante assert en la Parte B. Las capturas fueron utilizadas como evidencia visual complementaria.
