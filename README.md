@@ -6,12 +6,12 @@ Abrir `Laboratorio 3.code-workspace` en Visual Studio Code. El documento princip
 - `originales/`: copias intactas del avance recibido (PDF y LaTeX).
 - `documentacion/`: consigna y rúbrica.
 - `secciones/` y `figuras/`: informe editable e imágenes.
-- `parte_a/src`, `parte_a/tb`: divisor, contador, top y testbench pendientes de recibir.
-- `parte_b/src`, `parte_b/tb`: FSM, datapath, top y testbench pendientes de recibir.
-- `constraints/`: archivos XDC pendientes de recibir.
+- `parte_a/src`, `parte_a/tb`: divisor, contador, top y testbench verificados.
+- `parte_b/src`, `parte_b/tb`: FSM, datapath, top y testbenches verificados.
+- `constraints/`: archivos XDC con el mapeo final.
 - `evidencias/`: capturas de simulación, pruebas en placa y videos.
 
-Se preservó el contenido del colega al dividirlo en secciones. Los textos [Completar] siguen pendientes; no representan pruebas ejecutadas. No se ha compilado ni validado el diseño VHDL porque no se recibieron sus fuentes.
+El informe se organizó por secciones. Los diseños fueron simulados, implementados y programados en placa; las pruebas físicas fueron confirmadas por el equipo. Los videos de placa se enlazaron desde el PDF y las simulaciones se documentaron mediante capturas y testbenches.
 
 El informe se compiló con MiKTeX y se revisaron sus páginas renderizadas. El PDF de trabajo actualizado está en output/Informe_Laboratorio_3_Borrador.pdf. Sigue siendo borrador: completar autores y pruebas físicas antes de entregar.
 
