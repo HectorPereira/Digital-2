@@ -57,3 +57,5 @@ Autores confirmados: Isaac Martirena y Héctor Pereira. Reset de ambas partes y 
 
 ## Videos de placa en Drive
 Los tres videos se subieron con nombres neutros a la carpeta cuyo enlace está en evidencias/videos/enlaces_drive.json. Los enlaces fueron incorporados al PDF y se verificó que no contiene rutas locales ni menciones al entorno de colaboración. Los permisos de acceso deben comprobarse antes de entregar; las grabaciones de simulación y la edición de un video final por parte siguen pendientes.
+
+Acceso de lectura otorgado y verificado para Diego Quiroga y Yazmín Bentancour en los tres videos de placa. Los enlaces individuales del informe son los destinados a los docentes.

@@ -13,5 +13,12 @@
       "name": "Laboratorio 3 - Parte B - Prueba 2.mp4",
       "url": "https://drive.google.com/file/d/1BYkzmqP2yA4Zs2O5kWoa41vg2EHF4XHF/view?usp=drivesdk"
     }
-  ]
+  ],
+  "acceso_verificado": {
+    "permiso": "reader",
+    "docentes": [
+      "diego.quiroga.p@utec.edu.uy",
+      "yazmin.bentancour@utec.edu.uy"
+    ]
+  }
 }
